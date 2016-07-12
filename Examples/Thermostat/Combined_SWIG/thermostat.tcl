@@ -23,20 +23,63 @@ proc create_gui {} {
 
 	scale .system_temperatur\
 		-orient horizontal -length 250\
-		-from -20.0 -to 55.0 -resolution 0.5\
+		-from -20 -to 55 -resolution .5\
 		-variable sensed_temperature\
 		-command temperature_changed
-
-	label .heater_state
 
 	pack .system_temperatur\
 		-side bottom\
 		-fill x
 
+        if 1 {
+        frame .switch_on\
+                -relief ridge\
+                -borderwidth 3
+        label .switch_on.t\
+                 -text "ON °C"
+        spinbox .switch_on.v\
+		-state readonly\
+                -font {Sans 30}\
+                -from 10 -to 35 -increment .5 -wrap 0\
+		-width 4 -format "%04.1f"\
+                -textvariable lo_trigger
+        
+        frame .switch_off\
+                -relief ridge\
+                -borderwidth 3
+        label .switch_off.t\
+                 -text "OFF °C"
+        spinbox .switch_off.v\
+		-state readonly\
+                -font {Sans 30}\
+                -from 10 -to 35 -increment .5 -wrap 0\
+		-width 4 -format "%04.1f"\
+                -textvariable hi_trigger
+
+        pack .switch_on.t -side top\
+		 -fill x
+        pack .switch_on.v -side top\
+                 -fill both -expand 1
+        pack .switch_on -side left\
+		 -fill both -expand 1
+
+        pack .switch_off.t -side top\
+		 -fill x
+        pack .switch_off.v -side top\
+                 -fill both -expand 1
+        pack .switch_off -side right\
+		-fill both -expand 1
+        }
+        
+	label .heater_state\
+		-font {Sans 50}\
+		-width 5
+
 	pack .heater_state\
 		-side top\
 		-expand 1\
 		-fill both
+
 
 }
 
@@ -59,11 +102,13 @@ proc show_heater_state {} {
 	if {$system_heater} {
 		.heater_state configure\
 			-text "ON"\
-			-background red
+			-background red\
+			-foreground black
 	} else {
 		.heater_state configure\
 			-text "OFF"\
-			-background blue
+			-background blue\
+			-foreground white
 	}
 }
 
