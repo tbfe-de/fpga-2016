@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2016-07-12 16:30 - 18:00</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- when changing the stylesheet file please see also remark below -->
+    <link rel="stylesheet" type="text/css" href="styling.css" />
+  </head>
+  <body>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- :::::::::: template pages come first ... skip to REALCONTENT ::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<textarea id="source">
+
+layout: true
+name: blank
+styling: styling.css
+styling-by: Martin Weitzel
+
+<!--
+  *****************************************************************************
+  Template used for title page (only)
+  *****************************************************************************
+  Please change the 'styling-by:' attribute if you change the style-sheet.
+-->
+
+.stylehint[
+Styled with [{{styling}}]({{styling}}) by {{styling-by}}
+]
+
+---
+layout: true
+name: plain
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199 Tag 1 | Sprachen | 2016-07-12 | 16:30 … 18:00
+
+<!--
+  *****************************************************************************
+  Template used for for pages NOT referring to any Info-Graphic
+  *****************************************************************************
+  The following attributes are mandatory FOR THE TEMPLATE PAGE and should
+  simply be left empty if not meaningful.
+
+  copyright: will be reproduced in each page footer first
+  branding: will reproduced in each page footer next
+  customer: will be reproduced in each page footer last
+
+  As the above attributes are part of several page templates a global replace
+  should be used for consistent changes.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga_2016-logo[]
+]
+
+---
+layout: false
+template: blank
+name: frontmatter
+
+.title[
+	Using Tcl for Embedded Applications
+]
+.subtitle[
+	Introducing Tcl as:  
+	Language for Embedded Applications …  
+	… to which a GUI may be added with Tk
+]
+.author.pull-left[
+	Dipl.-Ing. Martin Weitzel  
+	Technische Beratung für EDV  
+	http://tbfe.de  
+]
+.client.pull-right[
+	FPGA-Kongress 2016
+	Sprachen / Languages
+	2016-07-12 (16:30 … 18:00)
+]
+
+.F[:
+You may download this presentation from the
+[Author's Internet Site](http://tbfe.de/archive)
+for any use in compliance with the
+[Creative Commons BY-SA License](http://creativecommons.org/licenses/by-sa/2.0/).
+As it has been created using the free HTML4-Tool [Remark](http://remarkjs.com),
+its content is written using the
+[Markdown-Syntax](http://daringfireball.net/projects/markdown/syntax),
+so you may even enhance the purely electronic (non-printed) form with your own
+annotations, only by means of any ordinary text editor. Just hit the P-key while
+viewing this in an internet browser, and follow instructions.
+]
+
+???
+
+(use +/- above to adjust the font size for convenient reading)
+
+Remark allows to add presenter notes to each page. As that feature is **not**
+used by the author of that presentation, it is available for private annotations
+from [this page](#content) on.
+
+Assuming you have downloaded and stored this presentation as HTML-file, proceed
+as follows:
+
+* Open the file in a text editor of your choice.
+
+* Locate the page which you want to annotate.
+
+  * You may do so by just scrolling down (but often it is easier to)
+  * use the text search feature of your editor.
+
+* Locate the separator to the next page (i.e. `---` in a line of its own).
+
+* Before that add another line with three question marks (`???`) only.
+
+Between these to separator lines you can put your annotations and view these
+by using as you just view this page.
+
+**Hint:**
+Indent code examples with four spaces at the beginning of each line and they
+will be displayed with their original line breaks. As an example, below the
+page structure including annotations is shown:
+
+    template: plain
+    name: used_for_internal_links
+    header: ## Shown at the Top of the Page
+
+    Simply scroll down through this document loaded in an editor and you will
+    probably catch the basics of Markdown-Syntax easily, e.g.  how to put in
+    *slight* or **strong** emphasis or [add a link](http://tbfe.de/downloads).
+
+    ???
+    From here follow the [Presenter Notes], i.e. your private annotations
+    ...
+    ...
+
+    [Presenter Notes]: adding-longer-links-that-keeps-text--uncluttered
+
+    ...
+    up to here.
+    ---
+
+To return to the normal view, now press the P-key once more.
+
+<!--
+If you want to put in meta-annotations, i.e. text that is not even shown
+after pressing the P-key, simply use HTML comments, like it is done here.
+-->
+
+---
+template: plain
+class: agenda
+name: content
+
+## Agenda
+
+------------------------------------------------------------------------------
+
+1. [What is Tcl?				](#tcl_language_overview)
+
+2. [How may Embedded Application use Tcl?	](#tcl_embedded_applications)
+
+3. [Tcl/Tk-Based Graphic User Interfaces	](#tcl_tk_based_guis)
+
+4. [Code-Walking an Example 			](#example_code_walk)
+
+5. [Questions and Discussion			](#you_name_it)
+
+------------------------------------------------------------------------------
+
+You are welcome to interrupt the speaker with questions._[] and – especially
+during the code-walk –– propose to try small changes.
+
+.F[:
+Your questions will be answered during the presentation to the best of the
+speaker's abilities and maybe in private communication after the presentation.
+]
+
+---
+template: plain
+name: tcl_language_overview
+
+## What is Tcl?
+
+Tcl is short for
+
+* Tool
+* Command
+* Language
+
+It is the scripting language for a number of Design Tools …
+
+.N.center[
+**… but Tcl may well be used "Stand-Alone" too!**
+]
+
+What does this mean?
+
+---
+template: plain
+
+### Requirements
+
+As an interpreted language Tcl needs …
+
+* (… guess what …)
+
+* **an Interpreter**
+
+.N.center[
+The Tcl Interpreter is available as executable program for many flavours
+of Unix – of course including Linux and Mac OS X – and Microsoft Windows.
+]
+
+---
+template: plain
+
+### Obtaining Tcl
+
+Moreover: Tcl is free software …
+
+* … so you may use it without paying license fees.
+
+And: The Tcl source code is available …
+
+* … just in case you might need an interpreter for an "exotic platform".
+
+.N[
+One of the major advantages of free software is that you do not depend on
+"strategic business decisions"._[] of an external company with respect to
+its products, i.e. whether such are
+
+* considered to be part of their core competence and  
+  will therefore be supported for a long time, or
+* determined to be obsolete and discontinued on short notice.
+]
+
+See also: https://www.tcl.tk/software/tcltk/
+
+.F[:
+Which you might also spell as "desire and mood" or simply: whim.
+]
+
+---
+template: plain
+
+### And There are a Number of IDEs Too …
+
+If you want to do *"Serious Application Development"*._[] there are a number of
+IDEs available too:
+
+.pull-left[
+From the Community:
+
+* …
+* …
+* … (see: http://wiki.tcl.tk/998)
+* …
+* …
+
+]
+
+.pull-right[
+For Eclipse:
+
+* http://www.eclipse.org/dltk
+
+For Microsoft Windows:
+
+* http://www.activestate.com/tcl
+
+]
+
+.F[:
+Small rant caused by recent discussions about the "necessity" of IDEs for
+serious software development:
+**Not denying** IDEs may be a big boon to get an overall understanding of a
+complex piece of software you have not written from scratch, and  
+**granting the fact** there are of course scenarios where the support of an
+IDE multiplies productivity:  
+If using vs. not using an IDE is taken as making the difference between
+"serious software development" vs. "just some toying around", then for the most
+part of his professional career  
+(a) the author of this never did any serious software development as …  
+(b) **nobody else did throughout the 70s, 80s and part of the 90s**, when  
+(c) an editor plus the command line was all you had, and so it probably is   
+(d) a sheer wonder that all those major software systems developed during these
+ancient times work at all! (Maybe just out of pure luck?)  
+But: *"Your mileage may vary"* as was the catchphrase in the good ol' days of
+the [Usenet News]. So everybody who feels the need to shoot sparrows with canon
+balls is free to do so … if this is what adds the touch of "seriousness" to his
+or her day-to-day job.
+]
+
+[Usenet News]: https://en.wikipedia.org/wiki/Usenet_newsgroup
+
+---
+template: plain
+
+### *Application Development Language* Features
+
+* Flow control to express the program logic
+
+* Support for basic data structures to help organize
+  related data items
+
+* Subroutines and maybe *Objects and Classes*._[] to provide
+  structure
+
+* Mechanisms to – build and use – libraries to get a good
+  portion of
+
+  * Modularity and
+
+  * Reusability
+
+.N.center[
+Tcl has all of this … and good set of add-ons and extensions too.
+]
+
+**Because:**  
+Modularity and Library Support are worth so much the more if there are add-ons
+available providing exactly – or at least "more or less" – the features helpful
+for or required by the application under development.
+
+.F[:
+With respect to OO-style programming Tcl offered some classical
+"add ons", like [Incremented Tcl], [OTcl], [XOTcl], or [Snit].
+]
+
+[Incremented Tcl]: https://en.wikipedia.org/wiki/Incr_Tcl
+[OTcl]: https://en.wikipedia.org/wiki/OTcl
+[XOTcl]: https://en.wikipedia.org/wiki/XOTcl
+[Snit]: https://en.wikipedia.org/wiki/Snit
+  
+---
+template: plain
+name: tcl_embedded_applications
+
+## Tcl for Which Kind Applications?
+
+Tcl may be used (in embedded applications) for:
+
+* High-Level Control Logic
+
+* Prototyping._[]
+
+* Testing
+
+.N.center[
+More will be shown walking through excerpts from real Tcl code.
+]
+
+.F[:
+There has been at least one case int the professional carer of the author when
+a piece of Tcl software originally planned as prototype and "proof of concept"
+was sufficient as the final solution.
+]
+
+---
+template: plain
+name: tcl_tk_based_guis
+
+## Tcl/Tk-Based Graphic User Interfaces
+
+Tcl's extension Tk is
+
+* is **not** the latest-greatest super nifty and cool cutting-edge achievement
+  in "advanced GUI design" …
+
+* … but **it is**:
+
+  * Mature and Stable
+  * relatively light-weight
+  * well sufficient for simple cases
+
+* furthermore it
+
+  * has a relatively low learning curve, but also
+  * lends itself well to the experienced users._[]
+
+.N.center[
+More will be shown walking through excerpts from real Tcl code.
+]
+
+.F[:
+Well, maybe with the addition: … the experienced user *who is willing to learn*
+and – to some degree – adapt to the design of Tk. If you take away some
+developer's beloved GUI library and try to convince him or her to switch to Tk,
+you **may** find yourself running into a major barrier rejection and denial …
+]
+
+---
+template: plain
+name: example_code_walk
+
+## Code-Walking Some Examples
+
+Some of the examples also demonstrate interfacing Tcl with C/C++.
+
+.N[
+Knowing this option exists may help to calm down worries Tcl might …
+
+* … turn out **not** to be sufficient to fulfill (timing) requirements, …
+
+* … leading to a complete restart, with …
+
+* … throwing all code developed so far into the trash bin.
+]
+
+---
+template: plain
+
+### A Tiny Demo Application in Tcl
+
+The demo application shown here will simulate a thermostate:
+
+* A heater is switched on when the temperature drops below a treshold and
+
+* it is switch off when the temperatur rises above another treshold.
+
+As the first step a [prototype is developed in "pure Tcl"](#tcl_prototype).
+
+Then the "thermostate logic" is implemented in C and tested using classic TDD
+style as well as a Tcl-based GUI again.
+
+---
+template: plain
+name: tcl_prototype
+
+#### The Tcl Prototype (1)
+
+First there are two global variables defined, which – in "the real world" –
+will probably be somehow connected to a sensors and an actor:
+
+```
+set sensed_temperature 21.0
+set system_heater 0
+```
+
+Two more globals represent the tresholds of the thermostate switch:
+
+```
+set low_trigger 19.0
+set high_trigger 21.0
+```
+
+---
+template: plain
+
+#### The Tcl Prototype (2)
+
+The thermostate's "switching logic" is in this subroutine:
+
+```
+proc switch_heater {temp} {
+        global low_trigger
+        global high_trigger
+        global system_heater
+        if {$temp <= $low_trigger} {
+                set system_heater 1
+        }
+        if {$temp >= $high_trigger} {
+                set system_heater 0
+        }
+}
+
+```
+
+In a real application this subroutine were called repeatedly or at least at
+every change of the sensed temperature changes.
+
+---
+template: plain
+
+#### The Tcl Prototype (3)
+
+For the purpose of testing a Tk-based GUI is created, using a "slider"
+(`scale`) to simulated sensed temperature values:
+
+```
+proc create_gui {} {
+
+        scale .system_temperatur\
+                -orient horizontal\
+                -from -20.0 -to 55.0 -resolution 0.5\
+                -variable sensed_temperature\
+                -command temperature_changed
+
+        label .heater_state
+
+        pack .system_temperatur\
+                -side bottom\
+                -fill x
+
+        pack .heater_state\
+                -side top\
+                -expand 1\
+                -fill both
+}
+```
+
+---
+template: plain
+
+#### The Tcl Prototype (4)
+
+The (yet) missing link to the termostate logic is this – a (Tcl) sub-routine
+called whenever the slider is moved:
+
+```
+proc temperature_changed {args} {
+        global sensed_temperature
+        switch_heater $sensed_temperature
+        show_heater_state
+}
+```
+
+As a reaction the thermostate logic would change the value of the global
+variable `system_heater`.
+
+---
+template: plain
+
+#### The Tcl Prototype (5)
+
+Last and finally the value assigned to `system_heater` will be visualized this
+way …
+
+```
+proc show_heater_state {} {
+        global system_heater
+        if {$system_heater} {
+                .heater_state configure\
+                        -text "ON"\
+                        -background red
+        } else {
+                .heater_state configure\
+                        -text "OFF"\
+                        -background blue
+        }
+}
+```
+
+---
+template: plain
+
+#### The Tcl Prototype (6)
+
+… leaving the lines below for starting-up everything:
+
+```
+set sensed_temperature 21.0     ;# assume this at the start
+create_gui                      ;# (as the name says) and
+temperature_changed             ;# show consistent state
+```
+
+Putting everything together, this is how the Tk-GUI finally looks:._[]
+
+.pull-left[
+Heater switched off:
+
+![GUI showing heater "off" state](ScreenShots/thermostate.tcl_off_state.png)
+]
+
+.pull-left[
+Heater switched on:
+
+![GUI showing heater "on" state](ScreenShots/thermostate.tcl_on_state.png)
+]
+
+
+.F[:
+For the whole code as a single file see:
+[Examples/Thermostate/Tcl_Prototype/thermostate.tcl](Examples/Thermostate/Tcl_Prototype/thermostate.tcl)
+]
+
+---
+template: plain
+
+#### A solution in Tcl plus C/C++
+
+In this case the "core logic" switching the heater on and off is implemented in
+[thermostate.c](Examples/Thermostate/Combined_SWIG/thermostate.c)._[]
+
+```
+const float low_trigger = 19.0;
+const float high_trigger = 25.0;
+int system_heater = 0;
+
+void switch_heater(float temp) {
+        if (temp <= low_trigger) {
+                system_heater = 1;
+        }
+        if (temp >= high_trigger) {
+                system_heater = 0;
+        }
+}
+```
+
+With the (obvious) public interface in
+[thermostate.h](Examples/Thermostate/Combined_SWIG/thermostate.h):
+```
+extern int system_heater; 
+extern void switch_heater(float temp);
+```
+
+.F[:
+Assume it does something more complex with a critical timing beyond the limits
+of Tcl.
+]
+
+---
+template: plain
+
+#### A solution in Tcl plus C/C++ (2)
+
+It may also have automated tests as this one in
+[thermostate-test.c](Examples/Thermostate/Combined_SWIG/thermostate-test.c):
+```
+#include <assert.h>
+#include <stdio.h>
+
+#include "thermostate.h"
+
+int main() {
+        system_heater = 0;
+
+        switch_heater(20.0f); assert(system_heater == 0);
+        switch_heater(19.5f); assert(system_heater == 0);
+        switch_heater(19.0f); assert(system_heater == 1);
+        switch_heater(17.0f); assert(system_heater == 1);
+        switch_heater(20.0f); assert(system_heater == 1);
+        switch_heater(24.9f); assert(system_heater == 1);
+        switch_heater(25.0f); assert(system_heater == 0);
+        switch_heater(30.0f); assert(system_heater == 0);
+        switch_heater(3.0f);  assert(system_heater == 1);
+        
+        (void) printf("** ALL TESTS PASSED\n");
+        return 0;
+}
+
+```
+
+---
+template: plain
+
+#### A solution in Tcl plus C/C++ (2)
+
+Integrating the C/C++ code with Tcl is easy and and systematic with the tool
+[SWIG].
+
+At first the interface needs to be described as in
+[thermostate.i](Examples/Thermostate/Combined_SWIG/thermostate.i):._[]
+
+```
+%module thermostate
+%{
+#include "thermostate.h"
+%}
+
+int system_heater;
+void switch_heater (float temp);
+```
+
+.F[:
+The similarity to a C/C++ header file is obvious and the original intent was
+that SWIG might take the interface description from a C/C++ header file like the
+one already shown. But this would require that SWIG is capable of parsing all
+complexities of the C++ syntax including advanced templates. Furthermore, as
+frequently not all of what is contained in a header file constitutes the
+interface to other code written in Tcl, some limited amount of code duplication
+apears to be acceptable.
+]
+
+[SWIG]: //www.swig.org
+
+---
+template: plain
+
+#### A solution in Tcl plus C/C++ (3)
+
+For the interface first a C-wrapper and finally a [Shared Object (`.so`-file)]
+is created.
+
+These are the relevant sections of the
+[Makefile](Examples/Thermostate/Combined_SWIG/Makefile):
+```
+…
+thermostate.so:\
+        thermostate.o\
+        thermostate_wrap.o
+        gcc -shared thermostate.o thermostate_wrap.o -o$@
+
+thermostate_wrap.o:\
+        thermostate_wrap.c
+        gcc -c -fPIC -I/usr/include/tcl8.6 thermostate_wrap.c
+
+thermostate_wrap.c:\
+        thermostate.i\
+        thermostate.h
+        swig -tcl thermostate.i
+…
+```
+
+[Shared Object (`.so`-file)]: 
+
+---
+template: plain
+
+#### A solution in Tcl plus C/C++ (4)
+
+The remaining code in Tcl/Tk mainly needs to create the user interface, exactly
+as it was done in the prototype. Beyond that the actual solution provided in
+[thermostate.tcl](Examples/Thermostate/Combined_SWIG/thermostate.tcl)
+shows how an additional interface tracking any modification to the global
+`system_heater` variable can be established with Tcl's feature to [`trace`]
+access to variables:._[]
+```
+…
+trace add variable system_heater {write} showvar
+
+proc showvar args {
+        global system_heater
+        puts $system_heater
+}
+…
+```
+
+.F[:
+Extended systematic instrumentation of (Tcl-) code to support trace-logs is
+another topic, where Tcl's networking features might come in handy: instead
+of creating console output with `puts` this kind of information might be
+written to a Tcp/Ip socket automatically connecting to a server to watch this
+output and also to filter it based on various criteria.
+]
+
+---
+template: plain
+name: you_name_it
+
+## And More – If Time Allows
+
+So you name it …
+
+.center[
+
+… otherwise:
+
+.N[
+
+**
+*Thanks for Listening!*
+**
+
+]
+]
+
+</textarea>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::: )-: ereh TNETNOCLAER fo dne :::::::::::::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+    <script src="remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({ highlightLanguage: 'tcl', highlightStyle: 'docco' });
+    </script>
+  </body>
+</html>

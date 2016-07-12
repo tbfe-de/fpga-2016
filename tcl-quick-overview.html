@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2016-07-12 14:15 - 15:45</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- when changing the stylesheet file please see also remark below -->
+    <link rel="stylesheet" type="text/css" href="styling.css" />
+  </head>
+  <body>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- :::::::::: template pages come first ... skip to REALCONTENT ::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<textarea id="source">
+
+layout: true
+name: blank
+styling: styling.css
+styling-by: Martin Weitzel
+
+<!--
+  *****************************************************************************
+  Template used for title page (only)
+  *****************************************************************************
+  Please change the 'styling-by:' attribute if you change the style-sheet.
+-->
+
+.stylehint[
+Styled with [{{styling}}]({{styling}}) by {{styling-by}}
+]
+
+---
+layout: true
+name: linkinfo
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199 Tag 1 | Sprachen | 2016-07-12 | 14:15 … 15:45
+
+<!--
+  *****************************************************************************
+  Template used for for pages INTRODUCING to a new Info-Graphic
+  *****************************************************************************
+  On this kind of pages a size-reduced version of the whole info graphic will
+  be reproduced and occupies approximately 2/3 of the page width. So only add
+  little information, preferably links to later pages dealing with single
+  sections of the info graphic.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  graphic: file path to of the infographic EXCLUDING the suffix.
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+.infographic[
+[![Info-Grafik](InfoGraphics/{{graphic}}.png)](InfoGraphics/{{graphic}}.png
+                "Click to open – add [CTRL+] SHIFT for new [tabbed] window")
+]
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga_2016-logo[]
+]
+
+---
+layout: true
+name: plain
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199 Tag 1 | Sprachen | 2016-07-12 | 14:15 … 15:45
+
+<!--
+  *****************************************************************************
+  Template used for for pages NOT referring to any Info-Graphic
+  *****************************************************************************
+  The following attributes are mandatory FOR THE TEMPLATE PAGE and should
+  simply be left empty if not meaningful.
+
+  copyright: will be reproduced in each page footer first
+  branding: will reproduced in each page footer next
+
+  As the above attributes are part of several page templates a global replace
+  should be used for consistent changes.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga_2016-logo[]
+]
+
+---
+layout: false
+template: blank
+name: frontmatter
+
+.title[
+	Everything You Always Wanted to Know about TCL
+]
+.subtitle[
+	A – very brief(!) – introduction into Tcl as  
+	 *Tool Command Language* **and**  
+	 *General Scripting Language*
+]
+.author.pull-left[
+	Dipl.-Ing. Martin Weitzel  
+	Technische Beratung für EDV  
+	http://tbfe.de  
+
+]
+.client.pull-right[
+	FPGA-Kongress 2016  
+	Sprachen | Languages  
+	2016-07-12 | 14:15 … 15:45
+]
+
+.F[:
+You may download this presentation from the
+[Author's Internet Site](http://tbfe.de/archive)
+for any use in compliance with the
+[Creative Commons BY-SA License](http://creativecommons.org/licenses/by-sa/2.0/).
+As it has been created using the free HTML4-Tool [Remark](http://remarkjs.com),
+its content is written using the
+[Markdown-Syntax](http://daringfireball.net/projects/markdown/syntax),
+so you may even enhance the purely electronic (non-printed) form with your own
+annotations, only by means of any ordinary text editor. Just hit the P-key while
+viewing this in an internet browser, and follow instructions.
+]
+
+???
+
+(use +/- above to adjust the font size for convenient reading)
+
+Remark allows to add presenter notes to each page. As that feature is **not**
+used by the author of that presentation, it is available for private annotations
+from [this page](#content) on.
+
+Assuming you have downloaded and stored this presentation as HTML-file, proceed
+as follows:
+
+* Open the file in a text editor of your choice.
+
+* Locate the page which you want to annotate.
+
+  * You may do so by just scrolling down (but often it is easier to)
+  * use the text search feature of your editor.
+
+* Locate the separator to the next page (i.e. `---` in a line of its own).
+
+* Before that add another line with three question marks (`???`) only.
+
+Between these to separator lines you can put your annotations and view these
+by using as you just view this page.
+
+**Hint:**
+Indent code examples with four spaces at the beginning of each line and they
+will be displayed with their original line breaks. As an example, below the
+page structure including annotations is shown:
+
+    template: plain
+    name: used_for_internal_links
+    header: ## Shown at the Top of the Page
+
+    Simply scroll down through this document loaded in an editor and you will
+    probably catch the basics of Markdown-Syntax easily, e.g.  how to put in
+    *slight* or **strong** emphasis or [add a link](http://tbfe.de/downloads).
+
+    ???
+    From here follow the [Presenter Notes], i.e. your private annotations
+    ...
+    ...
+
+    [Presenter Notes]: adding-longer-links-that-keeps-text--uncluttered
+
+    ...
+    up to here.
+    ---
+
+To return to the normal view, now press the P-key once more.
+
+<!--
+If you want to put in meta-annotations, i.e. text that is not even shown
+after pressing the P-key, simply use HTML comments, like it is done here.
+-->
+
+---
+template: plain
+class: agenda
+name: content
+
+## Agenda
+
+------------------------------------------------------------------------------
+
+.pull-left[
+PART 1
+
+* [Tcl's General Design				](#tcl_general_design)
+
+* [Tcl's Minimal Syntax				](#tcl_minimal_syntax)
+
+* [Tcl's Standard Library			](#tcl_standard_library)
+
+------------------------------------------------------------------------------
+
+Also Available as BONUS TRACK
+
+]
+
+.pull-right[
+PART 2
+
+* [General Tcl Scripting			](#general_tcl_scripting)
+
+* [Event-Driven Design				](#event_driven_design)
+
+* [Code-Walking a Real Project			](#code_of_a_real_project)
+
+------------------------------------------------------------------------------
+
+* [Using Tcl in Vivado				](#using_tcl_in_vivado)
+
+]
+
+<!-- -->
+
+------------------------------------------------------------------------------
+
+You are welcome to interrupt the speaker with questions._[] and – especially
+during the live examples and code-walks – propose to try small changes.
+
+.F[:
+Your questions will be answered during the presentation to the best of the
+speaker's abilities and maybe in private communication after the presentation.
+]
+
+---
+template: plain
+name: tcl_general_design
+
+## Tcl's General Design
+
+The general design of Tcl combines:
+
+* A mostly trivial syntax
+
+  * supporting some basic data structures
+
+* A standard library providing
+
+  * constructions for flow control
+
+  * some more data structures miscellaneous utilities._[] 
+
+  * introspection and hooks for debugging
+
+* A table-lookup mechanism for dispatching commands
+
+  * **which may be extended by tools** (e.g. Vivado)
+
+
+---
+template: plain
+name: tcl_minimal_syntax
+
+## Tcl's Minimal Syntax
+
+Understanding *Tcl's Syntax* actually is:._[]
+
+* Understanding
+
+  * [Command-Separation](#command_separation) and
+  * [Word-Separation](#word_separation)
+
+* Understanding various Substitutions:
+
+  * [Variable names for the stored value](#variable_value_substitution)
+  * [Subroutines/Commands for what they return](#return_value_substitution)
+  * [Escape-Sequences for Non-Printing Characters](#escape_sequences)
+
+* Understanding various forms of *Quoting*
+
+  * [Backslash Quoting](backslash_quoting)
+  * [Double_Quote_Quoting](#double_quote_quoting)
+  * [Curly Brace Quoting](#curly_brace_quoting)
+
+.F[:
+To quote John Ousterhout who designed Tcl in the late 80s:
+*Many problems beginners have with Tcl stem from the fact they assume a more
+complex syntax as their actually is.*
+]
+
+---
+template: plain
+
+### Tcl's `eval` command
+
+This is the command you use
+
+* *implicitly* all the time but
+
+* *explicitly* in **very rare** cases only  
+
+It causes the *Tcl Syntax Parser* to
+
+* look at any character string as Tcl command,
+* applying word- and command separation,
+* plus variable and return value substitution,
+* while honoring all quoting,
+* ending with looking up the first word as command,
+* **– finally executing it –**
+* handing over all the remaining words as arguments.
+
+.N[
+In other words: it does what happens all the time when Tcl executes a text file
+as script of commands.
+]
+
+[`eval`]: https://www.tcl.tk/man/tcl/TclCmd/eval.htm
+
+---
+template: plain
+
+### Tcl's `expr` command
+
+This is the command you
+
+* **you need to use explicitly** …
+
+* … in a context that needs to apply
+
+  * basic logic (and, or, not) or
+
+  * arithmetic operations (plus, minus, …) and
+
+  * mathematical functions (square root, sine, cosine, …)
+
+[`expr`]: https://www.tcl.tk/man/tcl/TclCmd/expr.htm
+
+---
+template: plain
+name: command_separation
+
+### Command Separation
+
+Tcl separates commands at the following boundaries:
+
+* Newline(s)._[]
+
+* Semicolons
+
+.N[
+
+Note that:
+
+* Command separators are looked for **prior** to any substitution
+
+* So especially newlines "generated" via the escape sequence `\n` are
+  **not** command separators
+
+]
+
+.F[:
+I.e. ASCII/Unicode Code Point 10 / 0x0A.
+]
+
+---
+template: plain
+name: word_separation
+
+### Word Separation
+
+Tcl separates words **within commands** at the following boundaries:
+
+* Space characters
+
+* Horizontal tabulators._[]
+
+* Sequences of the above
+
+.N[
+
+Note that:
+
+* Word separators are looked for **prior** to any substitution
+
+* So especially tabulators "generated" via the escape sequence `\t` are
+  **not** word separators
+
+]
+
+.F[:
+I.e. ASCII/Unicode Code Point 9 / 0x09.
+]
+
+---
+template: plain
+name: variable_value_substitution
+
+### Substituting Variable Content
+
+Tcl substitutes a variable name for the content of that variable
+
+* When the name._[] of a variable is preceded by `$`
+
+  * and the variable exists (i.e. has a value assigned to it)
+
+  * **otherwise it is an error**
+
+
+.F[:
+The spelling of variable names in Tcl are a (slight) super-set of what is valid
+in most other programming languages. By enclosing the variable name **after**
+the `$`-sign into curly braces the rules can even be more "relaxed", so that
+nearly **anything** will be acceptable as variable name – though readability
+will be hurt if this freedom is exploited too frequently.
+]
+
+---
+template: plain
+name: return_value_substitution
+
+### Substituting Subroutine Return Values
+
+Tcl substitutes the return value of a subroutine
+
+* If the complete command, i.e.
+
+  * command name and all arguments following
+
+  * are enclosed in square brackets
+
+* For the part inside square brackets
+
+  * a recursive syntax analysis is started
+
+  * which may in turn use square brackets 
+
+  * leading to nested command substitutions._[]
+
+.N.center[
+Note that this applies as well to **all built-in commands** of Tcl as to
+(additional) sub-routines defined via the `proc` commands.
+]
+
+.F[:
+Though technically many levels are possible, for readability any nesting should
+be kept rather flat by storing return values required as arguments (to other
+commands in temporary variables with a "telling name".
+]
+
+[`proc`]: https://www.tcl.tk/man/tcl/TclCmd/proc.htm
+
+---
+template: plain
+name: escape_sequences
+
+### Escape Sequences for Non-Printing Characters
+
+This is a Tcl feature taken from the C programming language:
+
+* `\a` → Audible Bell Character (ASCII/Unicode Code Point 7 / 0x07)
+* `\b` → Backspace (ASCII/Unicode Code Point 8 / 0x08)
+* `\t` → Horizontal Tab (ASCII/Unicode Code Point 9 / 0x09)
+* `\n` → Newline Tab (ASCII/Unicode Code Point 10 / 0x0a)
+* `\v` → Vertical Tab (ASCII/Unicode Code Point 11 / 0x0B)
+* `\r` → Carriage Return (ASCII/Unicode Code Point 12 / 0x0C)
+
+.N.center[
+Octal and hexadecimal notations are supported too, like in C89.
+]
+
+---
+template: plain
+name: backslash_quoting
+
+### Backslash Quoting
+
+A backslash may preceded any character.
+
+* If this is **not** an escape sequence for a non-printing character …
+
+* … the character directly following is taken verbatim. e.g.
+
+  * the word separators are taken as a verbatim space or horizontal tabulator
+    (character)
+
+  * the variable substitution request `$` is a verbatim dollar using `\$`
+
+  * the command substitution request `[` and `]` are verbatim square brackets
+    using `\[` and `\]`
+
+  * the command separator `;` is a verbatim semicolon using `\;`
+
+  * **to obtain a single backslash it needs to be written as `\\`**
+
+.N[
+Note that a backslash at the end of a line is a special case:  
+Together the newline character following **and** all white space at the start
+of the next line it is **replaced with a single space character**.
+]
+
+---
+template: plain
+name: double_quote_quoting
+
+### Double Quote Quoting
+
+Any sequence of characters my be enclosed in double quotes and inside
+
+* command and word separation will **not take place**
+
+* but anything else **will** work as if it were unquoted:
+
+    * `$` requests
+      [*Variable → Value* substitution](#variable_value_substitution)
+    * `[` … `]` requests
+      [*Command → Return Value* substitution](#return_value_substitution)
+    * `\` will
+      * **either**
+        [quote one of the above](#backslash_quoting)
+      * **or** work as escape sequence for
+        [non-printing characters](#escape_sequences)
+
+.N[
+Note that with respect to quoting with double quotes a backslash used
+
+* **outside** turns an (initial) `\"` into a verbatim double quote;
+
+* **inside** turns `\"` into representing a (contained) double quote.
+]
+
+---
+template: plain
+name: curly_brace_quoting
+
+### Curly Brace Quoting
+
+Any sequence of characters may be enclosed in a pair of curly braces and inside
+
+* any characters contained are taken verbatim
+
+* up to the (matching) closing curly brace
+
+.N[
+Note that
+
+* the **matching** curly brace is determined by
+  * counting opening and closing braces
+  * but **not** removing them;
+* a **contained** curly brace is
+  * exempt from being counted
+  * but the backslash is **not** removed.
+]
+
+---
+template: plain
+
+### Tcl Syntax Summary
+
+Now you have learned (nearly) all._[] of Tcl's trivial syntax.
+
+.N.center[
+Be sure to remember what John Ousterhout said and    
+**do not assume a more complex syntax as there actually is**!
+]
+
+.F[:
+Probably 99,9% of what you need in any Tcl script you'll ever write.
+]
+
+---
+template: plain
+name: tcl_standard_library
+
+## Tcl's Standard Library
+
+.N.center[
+The speaker will now continue with live examples.
+]
+
+During a self-study you may want to look-up command documentation as linked
+below to see typical examples.
+
+.pull-left[
+Branches and Loops:
+
+* [`if`], [`switch`], [`while`], [`for`], [`foreach`],
+* [`break`], [`continue`]
+
+Sub-Routines and Error Handling:
+
+* [`proc`], [`return`], [`error`], [`catch`]
+
+Introspection and Debugging:
+
+* [`info`], [`trace`], [`rename`]
+
+]
+
+.pull-right[
+Data Handling:
+
+* [plain variables],
+* [arrays],
+* [lists], and
+* [dictionaries]
+
+Classic Library Utilities:
+
+* much more._[] is provided and parts of it will be shown later
+]
+
+
+.F[:
+As [string handling] including [regular expressions], input ([by line] or
+[by number of characters], [output], a classic file interface with [open] and
+[close]) and TCP/IP [network sockets] too , accessing the file system (by
+[listing directories] and [operations on whole files]), [time and date] etc.
+… and support for an application architecture with an [event driven design]
+]
+
+[`if`]: https://www.tcl.tk/man/tcl/TclCmd/if.htm
+[`switch`]: https://www.tcl.tk/man/tcl/TclCmd/switch.htm
+[`while`]: https://www.tcl.tk/man/tcl/TclCmd/while.htm
+[`for`]: https://www.tcl.tk/man/tcl/TclCmd/for.htm
+[`foreach`]: https://www.tcl.tk/man/tcl/TclCmd/foreach.htm
+[`proc`]: https://www.tcl.tk/man/tcl/TclCmd/proc.htm
+[`return`]: https://www.tcl.tk/man/tcl/TclCmd/return.htm
+[`error`]: https://www.tcl.tk/man/tcl/TclCmd/error.htm
+[`catch`]: https://www.tcl.tk/man/tcl/TclCmd/catch.htm
+[`break`]: https://www.tcl.tk/man/tcl/TclCmd/break.htm
+[`continue`]: https://www.tcl.tk/man/tcl/TclCmd/continue.htm
+[`info`]: https://www.tcl.tk/man/tcl/TclCmd/info.htm
+[`trace`]: https://www.tcl.tk/man/tcl/TclCmd/trace.htm
+[`rename`]: https://www.tcl.tk/man/tcl/TclCmd/rename.htm
+
+[plain variables]: https://www.tcl.tk/man/tcl/TclCmd/set.htm
+[arrays]: https://www.tcl.tk/man/tcl/TclCmd/array.htm
+[lists]: https://www.tcl.tk/man/tcl/TclCmd/list.htm
+[dictionaries]: https://www.tcl.tk/man/tcl/TclCmd/dict.htm
+[string handling]: https://www.tcl.tk/man/tcl/TclCmd/string.htm
+[regular expressions]: https://www.tcl.tk/man/tcl/TclCmd/regexp.htm
+[input]: https://www.tcl.tk/man/tcl/TclCmd/gets.htm
+[output]: https://www.tcl.tk/man/tcl/TclCmd/puts.htm
+[open]: https://www.tcl.tk/man/tcl/TclCmd/open.htm
+[close]: https://www.tcl.tk/man/tcl/TclCmd/close.htm
+[listing directories]: https://www.tcl.tk/man/tcl/TclCmd/glob.htm
+[operations on whole files]: https://www.tcl.tk/man/tcl/TclCmd/file.htm
+[time and date]: https://www.tcl.tk/man/tcl/TclCmd/clock.htm
+[network sockets]: https://www.tcl.tk/man/tcl/TclCmd/socket.htm
+[event driven design]: #event_driven_design
+
+---
+template: plain
+name: general_tcl_scripting
+
+## Tcl for General Scripting
+
+As general scripting language Tcl has its Pro's and Con's:._[]
+
+* Advantages are:
+
+  * Open Source (continuation does not depend on a third party)
+  * Mature, stable and always striving for backward compatibility
+  * Established community of dedicated users
+  * Proven use in many serious projects (since ~25 years)
+  * Efficient and small memory footprint
+  * Extensible to GUI-Programming with Tk
+  * **Known from FPGA Scripting Tools**
+
+* Disadvantages are:
+
+  * Not much hype anymore (nowadays)
+  * Might be considered "out-dated" and therefore …
+  * … not be attractive to many software developers
+  * Relatively small user community
+  * Nifty "modern" GUI-Controls missing
+
+.F[:
+Compared to "more modern" alternatives.
+]
+
+---
+template: plain
+name: event_driven_design
+
+## Tcl and Event Driven Design
+
+Tcl lends itself well to event driven software designs.
+
+* An event-driven architecture
+
+  * consists of may small handlers
+  * to which a central dispatches events
+  * is preferable anyway for GU-programming
+
+* It usally depends on the posibility for an application …
+
+  * …  to send events to itself
+  * … either with or without delay
+
+* The design challenge is to keep handlers small
+
+---
+template: plain
+
+### Pro's and Con's of the Event-Driven Approach
+
+Advantages include:
+
+* Handlers run single-threaded to their end
+
+  * No need for mutexes or any other thread synchronisation
+
+  * Therefore no worries
+    * accidental data inconsistencies,
+    * about race conditions,
+    * or deadlocks
+
+Disadvantages include:
+
+* Forcibly breaking long handlers may not feel "natural"
+
+* Will not easily scale to multi-core hardware
+
+---
+template: plain
+
+### Tcl Commands for Event-Driven Architectures
+
+The following commands are essential for event-driven Tcl programming:
+
+* [`after`] – execute some handler deferred or continue via event-loop
+
+* [`fileevent`] – execute some handler when there is
+
+  * data available **when reading** from a file or socket
+
+  * space available._[] **when writing** to a file or socket
+
+* [`socket`] `-server` – provide a "half-open" TCP/IP connection to accecpt
+  connection requests from clients in a server application
+
+.N[
+There is also a command [`update`] to enter the event-loop recursively but
+using it **is not recommended because handlers have to consider to be called
+re-entrant.**
+]
+
+.F[:
+Though most Tcl programs do not care about it, filling-up  output buffers
+*might* lead to an application being blocked in an event handler an become
+unresponsive.
+]
+
+[`after`]: https://www.tcl.tk/man/tcl/TclCmd/after.htm
+[`fileevent`]: https://www.tcl.tk/man/tcl/TclCmd/fileevent.htm
+[`socket`]: https://www.tcl.tk/man/tcl/TclCmd/socket.htm
+[`update`]: https://www.tcl.tk/man/tcl/TclCmd/update.htm
+
+---
+template: plain
+name: code_of_a_real_project
+
+### Code-Walking a Real Project
+
+[
+.N.center[
+The speaker will take you on a code-walk through a real project.
+]
+](Examples/MultiMeter/dt9062.tcl)
+
+The code was written some years ago to interface with measurement data sent
+from a digital multimeter through a serial interface.
+
+You may feel that "some years" is a bit of understatement:
+
+Actually this multimeter was bought by the author about 15 years ago and the
+code shown was written around that time. The interesting fact is it still works
+essentially unchangend on any system with a Tcl interpreter that also offers
+the Tk extension for GUI programming.._[]
+
+* Whenever it was "ported" to a different host the only change was to  
+  **adapt the device name of the serial port**.
+
+* Whenever it had to be "ported" to more recent version of Tcl/Tk  
+  **no changes at all had to be made**.
+
+.F[:
+Though it hardly might make sense in practice, the code would – at least in
+principle – also work with *Embedded Tcl Interpreters* like the ones integrated
+in design tools for scripting. The only catch is that the event-loop of Tcl/Tk
+might not smoothly interface with an event-driven GUI.  Vivado GUI-mode e.g.
+uses its own event-loop which has no provisions to merge-in other event-loops.
+]
+
+---
+template: plain
+name: using_tcl_in_vivado
+
+## Using Tcl in Vivado
+
+------------------------------------------------------------------------------
+
+* [Tcl and Vivado – The Big Picture](#tcl_vivado_big_picture)
+
+    * [Non-Project- vs. Project Mode](#nonproject_vs_project_mode)
+    * [Understanding Project Mode](#understanding_project_mode)
+    * [Interaction of Design Model and Tcl](#design_model_and_tcl)
+
+* [Vivado Command Conventions](#vivado_command_conventions)
+
+    * [Tcl vs. Vivado Commands](#tcl_vs_vivado_commands)
+    * [Necessity of Quoting](#necessity_of_quoting)
+    * [Storing Commands in Variables](#storing_commands_in_variables)
+
+* [Understanding the Design Model](#understanding_the_design_model)
+
+    * [Basics of Design Navigation](#basics_of_design_navigation)
+    * [Accessing Object Properties](#accessing_object_properties)
+
+------------------------------------------------------------------------------
+
+---
+template: linkinfo
+graphic: Tcl_Vivado_Integration
+name: tcl_vivado_big_picture
+
+### Tcl and Vivado – The Big Picture
+
+* Being **A *Tool Command Language* by Design** …
+
+* … Tcl lends itself perfectly as scripting language for Vivado …
+
+* … though the added commands not always follow conventions and
+  style of (native) Tcl
+
+---
+template: linkinfo
+graphic: VivadoModesAndTcl
+name: nonproject_vs_project_mode
+
+#### Non-Project vs. Project Mode
+
+* *Non-Project Mode* and *Project Mode* are two ways to use Vivado
+  during design elaboration …
+
+* … but the difference is **not** how much of the work is done via
+  GUI and how much with Tcl
+
+---
+template: linkinfo
+graphic: VivadoProjectMode
+name: understanding_project_mode
+
+#### Understanding Project Mode
+
+* Relationships in *Project Mode* need some more explanation
+
+* Basically it automates managing dependencies between files while minimising
+  tool use
+
+* Also options for various optimisation runs are specified in a packaged
+  form, called *Strategies*
+
+---
+template: plain
+name: vivado_command_conventions
+
+### Vivado Command Conventions
+
+As already has been mentioned Tcl commands
+
+* evaluate their arguments themselves (each)
+
+* hence achieve "uniformity" by following conventions only
+
+* where *Tcl Style* and *Vivado Style* slightly differs
+
+.N.center[
+Differences are not quite from separate worlds but visible enough.
+]
+
+Therefore it pays to be aware of a command's origin – Tcl or Vivado …._[]
+
+.F[:
+… somewhat like being aware whether driving a gear-shifting car or a
+car with automatic transmission – Tcl is more on the gear-shifting side,
+Vivado more on the other (author's advice and personal opinion).  
+The reasons for the differences are manifold and partially speculative:
+(1) Tcl itself is not completely "as if made from one piece" and therefore
+not quite consistent. (2) There may have been the intent to be more
+"user friendly" in Vivado. (3) Scarce resources originally guiding some
+Tcl design decisions are no longer an issue today.
+]
+
+---
+template: linkinfo
+graphic: VivadoVsTclSyntax
+name: tcl_vs_vivado_commands
+
+#### Tcl vs. Vivado Commands
+
+* **Common** to Tcl and Vivado is Syntax Analysis only
+
+* Beyond that slightly different styles become apparent
+
+---
+template: plain
+name: understanding_the_design_model
+
+### Understanding the Design Model
+
+Prior to navigating._[] within the design using Tcl commands there needs to be a basic
+understanding the model itself.
+
+.I[
+For more information refer to:  
+[XILINX UG894] **Using Tcl Scripting** – for an Introduction  
+[XILINX UG835] **Vivado Tcl Commands** – Complete Reference
+]
+
+[XILINX UG894]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug894-vivado-tcl-commands.pdf
+[XILINX UG835]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug835-vivado-tcl-commands.pdf
+
+.F[:
+Navigating the design model is usually the first step to select one or more objects,
+which subsequently are accessed or modified.
+]
+
+---
+template: plain
+name: basics_of_design_navigation
+
+#### Basics of Design Navigation
+
+Navigating to objects in the design model is similar to navigating to files
+in a directory tree.
+
+* There is a *Top Level Object* …
+
+    * (much like the root directory of a file system)
+
+* … which may also be changed
+
+    * (much like the current working directory)
+
+.I[
+UG 894 → **Tcl Scripting in Vivado**  
+       → Accessing Design Objects  
+       → Getting By Name – Traversing the Design Hierarchy
+]
+
+---
+template: plain
+name: understanding_object_relations
+
+#### Understanding Object Relations
+
+Objects are inter-related via connections._[]
+
+*  which may also be used as a base for navigation
+
+* but first the relationships need to be understood
+
+.I[
+UG894 → **Tcl Scripting in Vivado**  
+       → Accessing Design Objects  
+       → Getting Objects by Relationship
+]
+
+.F[:
+For basic and even for moderately ambitious tasks it is fully sufficient
+to grasp the main relationships while ignoring the details. For the full
+picture see: *UG 835 → Ch. 1: Introduction → First Class Tcl Objects and
+Relationships  → Object Relationships*
+]
+
+---
+template: plain
+name: navigating_via_relations
+
+#### Navigating via Relations
+
+The general form is this:._[]
+
+* `get_`*`kind`* ` -of_objects ` *`which`*, where
+
+   * *`kind`* depends on the type of objects **to be** looked-up, and
+
+   * *`which`* is the type of objects **from which** the relation originates
+
+.N.center[
+**Not all combinations of *`kind`* and *`which`* are valid!**
+]
+
+Get accustomed to look-up proper usage in [XILINX UG835] or use the command with
+the `-help` option interactively.
+
+[XILINX UG835]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug835-vivado-tcl-commands.pdf
+
+.F[:
+Note that the syntax chosen seems to strive for being readable in natural language:  
+`get_pins -of_objects [get_nets -hier]`
+]
+
+---
+template: plain
+name: accessing_object_properties
+
+#### Filtering on Selection
+
+Many commands selecting objects have a `-filter` option
+
+* The required syntax deviates somewhat from Tcl style
+
+* Often it makes sense to put the whole selection in curly braces
+
+.N.center[
+**Be aware no variable substitution takes place in curly braces.**._[]
+]
+
+.F[:
+Be aware of backslash substitutions (for `\n`, `\t`, etc.) if you use double
+quotes instead and be aware of word (and command) separation if you use no
+quoting at all.
+]
+
+---
+template: plain
+name: accessing_object_properties
+
+#### Accessing Object Properties
+
+Design objects generally have properties._[]
+
+* Some properties are common to all objects
+
+* Others vary with the type of object
+
+* (also filtering is based on properties)
+
+.I[
+For more information see:  
+[XILINX UG835] → Ch. 1: Introduction  
+               → First Class Tcl Objects and Relationships  
+               → Object Properties
+]
+
+* [XILINX UG835] → Ch. 3: Tcl Commands Listed Alphabetically →
+    * `get_property`
+    * `list_property`
+    * `report_property`  
+    * … (and others) …
+
+.F[:
+As this presentation could never be exhaustive without becoming a reference
+manual, no attempt into that direction is made at all: get accustomed to
+look-up relevant information in [XILINX UG835]. **Now!**
+]
+
+[XILINX UG835]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug835-vivado-tcl-commands.pdf
+
+---
+template: linkinfo
+graphic: VivadoDesignFlows
+name: from_design_model_to_bitstream
+
+### From Design Model to Bitstream
+
+* The typical final goal of any design is the *Bitstream File*
+
+* Before this can happen the design usually needs some elaboration
+
+* (Thorough testing not shown here – though highly to recommend
+  before generating and using a bitstream file)
+
+
+.F[:
+Of course there are many reasons why a bitstream file might be never produced.
+E.g. a design could turn out to be inappropriate during elaboration or
+testing and is completely overturned. Or the goal is to just to test tools
+Vivado uses internally. Finally, the bitstream files eventually produced
+during this workshop are also not of much interest … (and will probably
+never be loaded to a concrete hardware).
+]
+
+---
+template: plain
+name: non_project_mode_outline
+
+#### Non-Project Mode Outline
+
+In *Non-Project Mode*
+
+* Files (Verilog/VHDL, Constraints, Simulation) need to explicitly loaded
+
+* Toos (Synthesis, Implementation/Optimizations) need to explicitly run
+
+.I[
+For an outline of a session in non-project mode see:  
+[XILINX UG888] → Lab 1: Using the Non-Project Design Flow
+]
+
+[XILINX UG888]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug888-vivado-tcl-commands.pdf
+
+---
+template: plain
+name: project_mode_outline
+
+#### Project Mode Outline
+
+In *Project Mode*
+
+* Vivado manages dependencies via *File Sets*
+
+* Arranges automatically for the adequate tools to run
+
+* Provides optimisation via *Strategies*
+
+.I[
+For an outline of a session in project mode see:  
+[XILINX UG888] → Lab 2: Using the Project Design Flow
+]
+
+[XILINX UG888]: http://www.xilinx.com/support/documentation/sw_manuals/xilinx2016_1/ug888-vivado-tcl-commands.pdf
+
+---
+template: plain
+name: you_name_it
+
+## And More – If Time Allows
+
+So you name it …
+
+.center[
+
+… otherwise:
+
+.N[
+
+**
+*Thanks for Listening!*
+**
+
+]
+]
+
+</textarea>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::: )-: ereh TNETNOCLAER fo dne :::::::::::::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+    <script src="remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({ highlightLanguage: 'tcl', highlightStyle: 'docco' });
+    </script>
+  </body>
+</html>

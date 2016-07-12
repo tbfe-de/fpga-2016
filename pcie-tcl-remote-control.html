@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2016-07-14 15:30 - 17:00</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- when changing the stylesheet file please see also remark below -->
+    <link rel="stylesheet" type="text/css" href="styling.css" />
+  </head>
+  <body>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- :::::::::: template pages come first ... skip to REALCONTENT ::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<textarea id="source">
+
+layout: true
+name: blank
+styling: styling.css
+styling-by: Martin Weitzel
+
+<!--
+  *****************************************************************************
+  Template used for title page (only)
+  *****************************************************************************
+  Please change the 'styling-by:' attribute if you change the style-sheet.
+-->
+
+.stylehint[
+Styled with [{{styling}}]({{styling}}) by {{styling-by}}
+]
+
+---
+layout: true
+name: plain
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199 Tag 1 | Sprachen | 2016-07-14 | 15:30 … 17:00
+
+<!--
+  *****************************************************************************
+  Template used for for pages NOT referring to any Info-Graphic
+  *****************************************************************************
+  The following attributes are mandatory FOR THE TEMPLATE PAGE and should
+  simply be left empty if not meaningful.
+
+  copyright: will be reproduced in each page footer first
+  branding: will reproduced in each page footer next
+  customer: will be reproduced in each page footer last
+
+  As the above attributes are part of several page templates a global replace
+  should be used for consistent changes.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga_2016-logo[]
+]
+
+---
+layout: false
+template: blank
+name: frontmatter
+
+.title[
+	Remote Control of PCIe Devices
+]
+.subtitle[
+	From Tcl as *Scripting Language* …   
+	… to its use for *Embedded Applications* …  
+	… to Tcl's extension *Tk for adding a GUI* …  
+	… and a *TCP/IP based Remote Controller*
+]
+.author.pull-left[
+	Dipl.-Ing. Martin Weitzel  
+	Technische Beratung für EDV  
+	http://tbfe.de  
+
+]
+.client.pull-right[
+	FPGA-Kongress 2016  
+	Sprachen / Languages  
+	2016-07-14 (16:30 … 17:00)
+]
+
+.F[:
+You may download this presentation from the
+[Author's Internet Site](http://tbfe.de/archive)
+for any use in compliance with the
+[Creative Commons BY-SA License](http://creativecommons.org/licenses/by-sa/2.0/).
+As it has been created using the free HTML4-Tool [Remark](http://remarkjs.com),
+its content is written using the
+[Markdown-Syntax](http://daringfireball.net/projects/markdown/syntax),
+so you may even enhance the purely electronic (non-printed) form with your own
+annotations, only by means of any ordinary text editor. Just hit the P-key while
+viewing this in an internet browser, and follow instructions.
+]
+
+???
+
+(use +/- above to adjust the font size for convenient reading)
+
+Remark allows to add presenter notes to each page. As that feature is **not**
+used by the author of that presentation, it is available for private annotations
+from [this page](#content) on.
+
+Assuming you have downloaded and stored this presentation as HTML-file, proceed
+as follows:
+
+* Open the file in a text editor of your choice.
+
+* Locate the page which you want to annotate.
+
+  * You may do so by just scrolling down (but often it is easier to)
+  * use the text search feature of your editor.
+
+* Locate the separator to the next page (i.e. `---` in a line of its own).
+
+* Before that add another line with three question marks (`???`) only.
+
+Between these to separator lines you can put your annotations and view these
+by using as you just view this page.
+
+**Hint:**
+Indent code examples with four spaces at the beginning of each line and they
+will be displayed with their original line breaks. As an example, below the
+page structure including annotations is shown:
+
+    template: plain
+    name: used_for_internal_links
+    header: ## Shown at the Top of the Page
+
+    Simply scroll down through this document loaded in an editor and you will
+    probably catch the basics of Markdown-Syntax easily, e.g.  how to put in
+    *slight* or **strong** emphasis or [add a link](http://tbfe.de/downloads).
+
+    ???
+    From here follow the [Presenter Notes], i.e. your private annotations
+    ...
+    ...
+
+    [Presenter Notes]: adding-longer-links-that-keeps-text--uncluttered
+
+    ...
+    up to here.
+    ---
+
+To return to the normal view, now press the P-key once more.
+
+<!--
+If you want to put in meta-annotations, i.e. text that is not even shown
+after pressing the P-key, simply use HTML comments, like it is done here.
+-->
+
+---
+template: plain
+class: agenda
+name: content
+
+## Agenda
+
+------------------------------------------------------------------------------
+
+1. [What you can expect				](#what_to_expect)
+
+2. [Demonstrating the PCIe (Remote) Controller	](#pcie_remote_demo)
+
+3. [The absolute Tcl/Tk crash course		](#tcl_tk_crash_course)
+
+4. [Some code walk OR time to DIY		](#code_walk_or_diy)
+
+------------------------------------------------------------------------------
+
+You are welcome to interrupt the speaker with questions._[] and – especially
+during the code-walk –– propose to try small changes.
+
+.F[:
+Your questions will be answered during the presentation to the best of the
+speaker's abilities and maybe in private communication after the presentation.
+]
+
+---
+template: plain
+name: what_to_expect
+
+## What You Can Expect
+
+Please understand that
+
+* 90 Minutes are a long time …
+
+  * … if you have to stand on one leg
+
+* but are far from being sufficient to
+
+  * learn the basics of Tcl/Tk
+
+  * walk though a lot of example code
+
+  * allow some time to practice yourself
+
+  * fully understand the *PCIe Remote Control Application*
+
+.N.center[
+Nevertheless: Let's Try our Best!
+]
+
+---
+template: plain
+
+### Our Goal …
+
+… for the next hour plus some time is this:
+
+* Whet your appetite by
+
+  * demonstrating the PCIe Remote Control and
+
+  * the (relatively) tiny amount of code it requires
+
+* Teach the *Absolute Crash Course on Tcl/Tk* …
+
+  * … with showing a examples for Tcl/Tk programming
+
+* Allow some time (20…30 Minutes) for practical work
+
+* Close with reviewing the solutions as more coding examples
+
+---
+template: plain
+name: pcie_controller_demo
+
+## The *PCIe Controller* Demo
+
+The following will be demonstrated:
+
+* For the LEDs (as represented in the `/sys/tcl_drv/`-directory):
+
+  * A Tcl program showing the basic approach to write to the device files
+    representing the LEDs (48 LOC).
+
+  * A Tcl program displaying a pattern repeatedly (77 LOC).
+
+  * A Tk-based GUI-program for switching the LEDs (64 LOC).
+
+* For the Switches (as represented in the `/sys/tcl_drv/`-directory):._[]
+
+  * A Tcl program showing the basic approach (56 LOC).
+
+  * A Tk-based GUI program with adding some more functionality (140 LOC).
+
+.F[:
+The switches are generally polled in the demo programs. While polling in
+general is not a nice solution, it had to be used here because the PCIe driver
+implemented in earlier sessions does not support an interrupt driven access.
+]
+
+---
+template: plain
+name: pcie_remote_controller_demo
+
+## The *PCIe **Remote** Controller* Demo
+
+The following will be demonstrated:
+
+* For the LEDs a TCP/IP-based Client/Server Remote Controller
+
+  * Server 137 LOC
+
+  * Client 99 LOC
+
+* For the Switches a TCP/IP-base Client/Server Remote Controller
+
+  * Server (not yet finished)
+
+  * Client (not yet finished)
+
+---
+template: plain
+name: tcl_tk_crash_course
+
+## The Absolute Tcl/Tk Crash Course (1)
+
+Very quickly introducing:
+
+* [Command Syntax			](#command_syntax)
+* [Variable Substitution		](#variable_substitution)
+* [Return Value Substitution		](#return_value_substitution)
+* [Various Forms of Quoting		](#various_forms_of_quoting)
+* [Doing Arithmetic			](#doing_arithmetic)
+
+Followed by standard Tcl commands for
+
+* [Handling Variables			](#handling_variables)
+* [Array and Lists			](#arrays_and_lists)
+* [Flow Control				](#tcl_flow_control)
+* [Subroutines				](#tcl_subroutines)
+* [Error-Recovery			](#error_recovery)
+
+---
+template: plain
+
+## The Absolute Tcl/Tk Crash Course (2)
+
+Continuing with Library Functions
+
+* [String handling			](#string_handling)
+* [Input and Output			](#input_and_output)
+* [File System Operations		](#file_system_ops)
+* [Support for Event-Driven Designs	](#event_driven_design)
+
+Finally Turning to Tk-based GUIs
+
+* [Widgets in General			](#widgets_in_general)
+* [Their Graphical Arrangement		](#graphical_arrangement)
+* [How to Connect to Variables …	](#connect_to_variables)
+* [… and Commands			](#connect_to_commands)
+
+---
+template: plain
+name: command_syntax
+
+### Command Syntax			
+
+A Tcl Script is a series of *Commands*, each of which consists of *Words*.
+
+* Commands (of a script) are separated by
+
+  * line endings or
+
+  * semicolons
+
+* Words (of a command) are separated by
+
+  * any amount of white space, which is
+
+    * space (ASCII/Unicode code point 32) or
+
+    * horizontal tab character (ASCII/Unicode code point 9)
+
+.N.center[
+Separators are only recognized at a very early step of syntax analysis,  
+**not** if they are inserted by one of the substitution mechanisms.
+]
+
+---
+template: plain
+name: variable_substitution
+
+### Variable Substitution
+
+Variable values are
+
+* set (and defined) with the Tcl command `set` and
+
+* their value gets substituted into a command line …
+
+  * … when a dollar (`$`) sign is followed by the name of an existing variable
+
+```
+set name "Dipl.-Ing Martin Weitzel"
+puts "== $name =="
+```
+
+.N.center[
+Using a variable name that hasn't been set before._[] will lead to an error
+during script execution.
+]
+
+.F[:
+The same is – of course – true if the variable had been set once but was
+removed with the Tcl-Command `unset`.
+]
+
+---
+template: plain
+name: return_value_substitution
+
+### Return Value Substitution
+
+Tcl has commands that are built-in, furthermore subroutines may be defined with
+the `proc` command._[]
+
+* Their return values get substituted into a command line …
+
+  * … when the call of a is surrounded by square brackets (`[` … `]`).
+
+```
+proc line {n {c *}} {
+	return [string repeat $c $n]
+}
+
+puts [line 20]
+puts [line 40 =]
+```
+
+.N.center[
+All Tcl commands and subroutines will "return" something – though it may be
+just an empty string._[]
+]
+
+.F[:
+If there is no explicit `return` in a sub-routine defined with the `proc`
+command the return value of the command executed last executed in the
+sub-routine will be ts return value.
+]
+
+---
+template: plain
+name: various_forms_of_quoting
+
+### Various Forms of Quoting		
+
+There are several mechanisms to remove to step into Tcl's syntax analysis:
+
+
+* **Full Quoting**  
+  Enclose parts of a command line into curly braces (`{` … `}`)
+
+  * Everything is taken verbatim
+  * Curly braces are "counted" only to find the matching close brace
+
+* **Partial Quoting**  
+  Enclose parts of a command line into curly braces (`"` … `"`)
+
+  * **No** command or word separation takes place
+  * **but** variable and return value substitution still works
+
+* **Single Character Quoting**  
+  Prepend a back-slash (`\`) to any character that shall be taken verbatim
+
+.N.center[
+Back-slashes also allow to express certain "non-printing" characters,  
+exactly as they do in C/C++.
+]
+
+---
+template: plain
+name: doing_arithmetic
+
+### Doing Arithmetic
+
+Arithmetic **is not part of the Syntax** what makes Tcl different from most any
+other widely used programming language.
+
+* General arithmetic operations are done with the `expr` command.  
+
+  * It handles all of the arithmetic expression operators known from C
+
+  * The well-known mathematical functions are supported too
+
+* The frequent case of an integer increment is handled with `incr`
+
+  * It has the step as optional argument …
+
+  * … so it can be used for decrement too
+]
+
+.pull-left[
+```
+puts [expr 6*7]
+puts [expr 1u<<12]
+puts [expr 1/sqrt(2)]
+puts [expr 2*acos(0.0)]
+```
+]
+
+.pull-right[
+```
+set i 10; puts "i=$i"
+incr i;   puts "i=$i"
+puts "up by 1: [incr i]"
+puts "down by 7: [incr i -7]"
+```
+]
+
+---
+template: plain
+name: handling_variables
+
+### Handling Variables
+
+The Tcl command `set` may be used to
+
+* **assign** a value to a variable (if followed be two words), or 
+
+* **retrieve** the value from a variable (if followed by one word only)
+
+.N.center[
+Variable substitution with `$` exists for convenience only!
+]
+
+```
+set name "Dipl.-Ing Martin Weitzel"
+puts "== [set name] =="
+```
+
+---
+template: plain
+name: arrays_and_lists
+
+### Array and Lists			
+
+Part of a variable **name**
+
+* may be an *Index* enclosed in round parentheses (`(` … `)`)
+
+* which *does not* need to be numeric but can be any string
+
+.N.center[
+Tcl arrays are rather lookup-tables for "key - value" pairs.
+]
+
+Furthermore, a variable
+
+* may contain a number of space separated items and
+
+* can then be accessed as *List*.._[]
+
+.N.center[
+Tcl lists are rather like native arrays in C/C++: Their elements are indexed
+seqentially from `0` to one less than the list length.
+]
+
+.F[:
+Frequently used commands for working with lists are `list`, `llength`,
+`lindex`, `lreplace`, `lset`, `lassign` …
+]
+
+---
+template: plain
+name: tcl_flow_control
+
+### Flow Control				
+
+Tcl implements all of its flow control with commands too:
+
+* Conditional branching with `if` and `switch`
+
+* Repetition with `while` and `foreach`
+
+* Traversing a list with `foreach`
+
+.pull-left[
+Print command line arguments, or a
+message that none exist exist:
+```
+if {$argc == 0} {
+	puts "(no args)"
+} else {
+	foreach arg $argv {
+		puts "* $arg"
+}
+```
+]
+
+.pull-right[
+Enumerate command line arguments, starting from 1:
+```
+set i 0
+while {$i < $argc}
+	set arg [lindex $argv $i]
+	puts "[incr i]. $arg"
+}
+```
+]
+
+---
+template: plain
+name: tcl_subroutines
+
+### Subroutines	
+
+Subroutines are
+
+* **defined** with the `proc` command
+
+* **called** like any ordinary (built-in) command
+
+.N.center[
+Subroutines also support various forms of argument handling,  
+including default values and variable length argument lists.
+]
+
+Most usages of sub-routines will be shown in concrete code examples.
+
+The following does for floating point what `incr` does for inegral values:._[]
+
+.pull-left[
+```
+proc fincr {vname {step 1.0}} {
+	upvar $vname v
+	set v [expr $v + $step}]
+}
+```
+]
+.pull-right[
+```
+set PI 3.14152; puts $PI
+fincr PI;       puts $PI
+fincr PI -0.5;  puts $PI
+```
+]
+
+.F[:
+Note that `incr` returns the new (incremented) value. So, is there a `return`
+command missing from the implementation of `fincr`?
+]
+
+---
+template: plain
+name: error_recovery
+
+### Error-Recovery
+
+Recovering from errors triggered by a failing operation can be done in the
+following (cookbook) style:._[]
+
+```
+...
+if {[catch { operation-that-may-fail } result]} {
+    # if the operarion actually failed this point is reached
+    # (with details of the nature of the problem in `result`)
+    ... ;# handle error
+} else {
+    # if the operation run to completion this point is reached
+    # (with the return value of the operation in `result`)
+    ... ;# proceed with normal processing
+   
+}
+...
+```
+
+.F[:
+The above assumes the typical case, where a Tcl command indicates a problem by
+aborting further processing. If some subroutine implemented in Tcl needs to
+indicate a problem in that way, the command `error` can be used.
+]
+
+---
+template: plain
+name: string_handling
+
+### String handling			
+
+Tcl's `string` command has many sub-commands useful for operations on character
+strings:
+
+* `string length …` – determine number of contained characters
+* `string index …` – and return single character at given index
+* `string range …` – and return part of a string between given indices
+* `string equal …` – compare strings to have the same value
+* `string compare …` – compare strings much line `strcmp` from C
+* `string first …` – locate sub-string startng from left end
+* `string last …` – locate sub-string startng from right end
+* `string repeat …` – create a string by repeating a pattern
+* `string is …` – test for certain qualities of a string's content
+
+```
+proc check_args_or_die {} {
+    if {[llength $::argv] == 0} {
+        puts stderr "Usage: $::argv0 <host:port>"; exit 1
+    }
+    lassign [split [lindex $::argv 0] :] host port
+    if {![string is integer $port] || $port < 1 || $port > 65535} {
+        puts stderr "$::argv0: invalid ip-port: $port"; exit 2
+    }
+}
+```
+
+---
+template: plain
+name: input_and_output
+
+### Input and Output			
+
+Input and output is closely modelled after the C-style opaque `FILE` type:
+
+* `open` returns a *Channel* which is handed over to one or more of
+  * `puts` – write whole line, or partial with the `nonewline` option
+  * `gets`, `read` – read whole line or given amount of characters._[]
+  * `eof` – test for end-of-file condition
+  * `tell`, `seek` – set position for next input or output operation
+  * `fconfigure` – modify certain details, like
+    * buffering (non, by line, by block)
+    * various translation modes, or
+    * settings of a serial device (baud-rate etc.)
+* finally the channel needs to be `close`-d to return system resources
+
+.pull-left[
+```
+set fd [open myfile.txt r]
+while {[gets $fd line] >= 0} {
+    # ...
+}
+close $fd
+```
+]
+.pull-right[
+```
+set fd [open trace.log]
+fconfigure $fd -buffering none
+puts $fd -nonewline started\ ...
+# ...
+puts $fd " done"
+```
+]
+
+.F[:
+Not specifying the amount of characters means to read as much as possible.
+]
+
+---
+template: plain
+name: file_system_ops
+
+### File System Operations
+
+The following commands deal with files in the whole:
+
+* `file` – access or set various properties and more, via sub-commands
+
+  * `exists`, `readable`, `writable`, … – test if existing etc
+  * `size`, `mtime`, `atime`, … – size and time-stamps
+  * `isdirectory`, `isfile`, `isexecutable`, … – test that property
+  * `dirname`, `rootname`, `nativename`, `extension` … – parts of name
+  * `mkdir`, `copy`, `rename` … – (as the names suggests)
+  * `separator` – typically `/` (Unix/Linux) or `\` (Windows/MS-DOS)
+
+* `glob` – list (matching) file names in a directory._[]
+
+```
+foreach sw [glob -directory /sys/tcl_drv/sw*] {
+	if {[catch {open $led r} fd]} continue
+	puts "$sw -> [read $fd 1]"
+	close $fd
+}
+```
+
+.F[:
+Note that `glob` produces the list of files in no particular order, but sorting
+by alphabetically by name is easy:
+`… [lsort [glob -directory /sys/tcl_drv/sw*]] …`
+]
+
+---
+template: plain
+name: event_driven_design
+
+### Event-Driven Design
+
+The following Tcl commands support event-driven designs:
+
+* `fileevent` *`chan`* `readable` …  
+  `fileevent` *`chan`* `writable` …  
+  register call-back if a channel becomes readable or writable
+
+* `after` *`msec`* …  
+  register call-back (to be executed via event-loop) after a delay of
+  *`msec`* milliseconds
+
+* `socket -server` … *`port`*  
+  register callback for incoming connection requests on given `*port*`
+
+* `vwait` *`varname`*  
+  enter event-loop until variable named by *`varname`* gets modified
+
+.N.center[
+If Tcl used with a Tk GUI **only** the event-driven designs make sense!
+]
+
+.F[:
+The delay may also be `0` for immediate execution, **after all currently
+queued** events.
+]
+
+---
+template: plain
+name: widgets_in_general
+
+### Widgets in General
+
+A small but fully working example is this …
+```
+#!/usr/bin/wish
+
+set font {Sans 50}
+
+label .counter -font $font -width 5
+
+button .up -text + -width 2 -font $font
+button .down -text – -width 2 -font $font
+button .exit -text EXIT -command exit
+
+grid .up .counter -sticky nwse
+grid .down  ^     -sticky nwse
+grid .exit  -     -sticky nwse
+```
+… more will follow in the code-walks.
+
+---
+template: plain
+name: graphical_arrangement
+
+### Graphical Widget Arrangement (1)
+
+In general the layout of widgets is
+
+* **not** specified by (pixel) positions, but
+
+* by **strategies** for their arrangement.
+
+Here is a different approach using the `grid`der instead of the `pack`er:
+```
+... # as before
+
+pack .up -side left -fill y
+pack .down -side right -fill y
+pack .exit -side bottom -fill x
+pack .counter -fill both -expand 1
+
+...
+
+```
+
+---
+template: plain
+
+### Graphical Widget Arrangement (2)
+
+Getting comfortable with the use of `pack` and `grid` pays in so far
+
+* as nearly any layout of widgets may be achieved
+
+* including user-friendly resizing behaviour
+
+Here is an example with a nested use of `pack`-ed and a `grid`-ded layout:
+```
+set font {Sans 50}
+
+label .counter -font $font -width 5
+frame .buttons -relief ridge -borderwidth 3
+button .buttons.up -text + -width 2 -font $font
+button .buttons.down -text – -width 2 -font $font
+button .exit -text EXIT -command exit
+
+grid .buttons.up .buttons.down -sticky nesw
+pack .buttons -side top -fill x
+pack .counter -fill both -expand 1
+pack .exit -side bottom -fill x
+```
+
+
+---
+template: plain
+name: connect_to_variables
+
+### How to connect to Variables …
+
+In the previous code only widgets were create and made visible.
+
+For a working application some data (the counter value) needs to be added:
+```
+...
+set cvalue 0
+label .counter -font $font -width 5 -textvariable cvalue
+...
+```
+
+Such a connection is not only "one way" but bidirectional, as can be easily
+shown by start `wish` interactively with a `scale` created like below and …
+```
+pack [scale .s -from 1 -to 200 -length 500 -variable x]
+```
+… while moving the slider issue commands to inspect and modify `x`:
+
+.pull-left[
+```
+puts $x
+```
+]
+.pull-right[
+```
+set x 52
+```
+]
+
+---
+template: plain
+name: connect_to_commands
+
+### … and Commands
+
+To complete the Up/Down-Counter example, the buttons are finally connected
+to the commands modifying the variable `cvalue` accordingly:
+```
+...
+button .buttons.up -text + -width 2 -font $font\
+	-command {incr cvalue}
+button .buttons.down -text – -width 2 -font $font\
+	-command {incr cvalue -1}
+...
+```
+
+---
+template: plain
+name: code_walk_or_diy
+
+## Some Code Walk or time to DIY
+
+At this point the road splits:
+
+* Either you can work on some practical examples yourself …
+
+* … or we continue with a guided code-walk through some
+
+.N.center[
+*PCIe Remote Controller Applications*
+]
+
+---
+template: plain
+name: pcie_remote_ctrl
+
+### The PCIe Remote Controller
+
+There is a collection of examples in directory
+[Tcl-Tk-PCIe/tcl_app](Examples/Tcl-Tk-PCIe/tcl_app)
+that are best viewed and explained in the following order:
+
+* [leds-set-simple.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-simple.tcl)
+* [leds-set-repeat.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-repeat.tcl)
+* [leds-set-tk_gui.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-tk_gui.tcl)
+* [leds-set-client.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-client.tcl)
+* [leds-set-server.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-server.tcl)
+* [switch-poll-simple.tcl	](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-simple.tcl)
+* [switch-poll-tk_gui.tcl	](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-tk_gui.tcl)
+
+---
+template: plain
+name: pcie_remote_ctrl
+
+### Some Practical Exercises for DIY
+
+There is a set of exercises, from simple to advanced, in 9 steps..[]
+
+* There are source files with small omissions, marked with `?!?`
+
+  * These files are in directory:
+    [Examples/Learning_TclTk/By_Doing](Examples/Learning_TclTk/By_Doing)
+
+.N[
+Here you would have to fill in the missing parts so that the code works
+as described in the comments at the start of the files.
+]
+
+* You may view the solutions (with the missing parts filled):
+
+  * These files are in directory:
+    [Examples/Learning_TclTk/Solved](Examples/Learning_TclTk/Solved)
+
+.F[:
+Some advanced examples are a *Server* and a *Client*. The latter has the suffix
+`x` after its numbered step.
+]
+
+---
+template: plain
+name: thats_all
+
+## OK - That's All
+
+My suggestion is we now walk through some of the basic PCIe examples, where the
+device driver is accessed via device files using Tcl.
+
+You then may decide whether
+
+* **we** continue with advanced examples, going into more depth,
+
+* or **you** continue with the *"Do It Yourself Exercises"*.
+
+(We can also mix the above, working in separate groups.)
+
+.N.center.big[
+
+**
+*Thank You for Your Participation!*
+**
+
+]
+
+</textarea>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::: )-: ereh TNETNOCLAER fo dne :::::::::::::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+    <script src="remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({ highlightLanguage: 'tcl', highlightStyle: 'docco' });
+    </script>
+  </body>
+</html>
