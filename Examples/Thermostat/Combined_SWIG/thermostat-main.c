@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "thermostate.h"
+#include "thermostat.h"
 
 int main() {
 	float system_temperature;

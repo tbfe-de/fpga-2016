@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "thermostate.h"
+#include "thermostat.h"
 
 int main() {
 	system_heater = 0;

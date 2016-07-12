@@ -356,7 +356,7 @@ More will be shown walking through excerpts from real Tcl code.
 ]
 
 .F[:
-There has been at least one case int the professional carer of the author when
+There has been at least one case in the professional carer of the author when
 a piece of Tcl software originally planned as prototype and "proof of concept"
 was sufficient as the final solution.
 ]
@@ -405,7 +405,7 @@ Some of the examples also demonstrate interfacing Tcl with C/C++.
 .N[
 Knowing this option exists may help to calm down worries Tcl might …
 
-* … turn out **not** to be sufficient to fulfill (timing) requirements, …
+* … turn out **not** to be sufficient to fulfil (timing) requirements, …
 
 * … leading to a complete restart, with …
 
@@ -417,15 +417,15 @@ template: plain
 
 ### A Tiny Demo Application in Tcl
 
-The demo application shown here will simulate a thermostate:
+The demo application shown here will simulate a thermostat:
 
-* A heater is switched on when the temperature drops below a treshold and
+* A heater is switched on when the temperature drops below a threshold and
 
-* it is switch off when the temperatur rises above another treshold.
+* it is switch off when the temperature rises above another threshold.
 
 As the first step a [prototype is developed in "pure Tcl"](#tcl_prototype).
 
-Then the "thermostate logic" is implemented in C and tested using classic TDD
+Then the "thermostat logic" is implemented in C and tested using classic TDD
 style as well as a Tcl-based GUI again.
 
 ---
@@ -442,7 +442,7 @@ set sensed_temperature 21.0
 set system_heater 0
 ```
 
-Two more globals represent the tresholds of the thermostate switch:
+Two more globals represent the thresholds of the thermostat switch:
 
 ```
 set low_trigger 19.0
@@ -454,7 +454,7 @@ template: plain
 
 #### The Tcl Prototype (2)
 
-The thermostate's "switching logic" is in this subroutine:
+The thermostat's "switching logic" is in this subroutine:
 
 ```
 proc switch_heater {temp} {
@@ -485,7 +485,7 @@ For the purpose of testing a Tk-based GUI is created, using a "slider"
 ```
 proc create_gui {} {
 
-        scale .system_temperatur\
+        scale .system_temperature\
                 -orient horizontal\
                 -from -20.0 -to 55.0 -resolution 0.5\
                 -variable sensed_temperature\
@@ -493,7 +493,7 @@ proc create_gui {} {
 
         label .heater_state
 
-        pack .system_temperatur\
+        pack .system_temperature\
                 -side bottom\
                 -fill x
 
@@ -509,7 +509,7 @@ template: plain
 
 #### The Tcl Prototype (4)
 
-The (yet) missing link to the termostate logic is this – a (Tcl) sub-routine
+The (yet) missing link to the thermostat logic is this – a (Tcl) sub-routine
 called whenever the slider is moved:
 
 ```
@@ -520,7 +520,7 @@ proc temperature_changed {args} {
 }
 ```
 
-As a reaction the thermostate logic would change the value of the global
+As a reaction the thermostat logic would change the value of the global
 variable `system_heater`.
 
 ---
@@ -564,19 +564,19 @@ Putting everything together, this is how the Tk-GUI finally looks:._[]
 .pull-left[
 Heater switched off:
 
-![GUI showing heater "off" state](ScreenShots/thermostate.tcl_off_state.png)
+![GUI showing heater "off" state](ScreenShots/thermostat.tcl_off_state.png)
 ]
 
 .pull-left[
 Heater switched on:
 
-![GUI showing heater "on" state](ScreenShots/thermostate.tcl_on_state.png)
+![GUI showing heater "on" state](ScreenShots/thermostat.tcl_on_state.png)
 ]
 
 
 .F[:
 For the whole code as a single file see:
-[Examples/Thermostate/Tcl_Prototype/thermostate.tcl](Examples/Thermostate/Tcl_Prototype/thermostate.tcl)
+[Examples/Thermostat/Tcl_Prototype/thermostat.tcl](Examples/Thermostat/Tcl_Prototype/thermostat.tcl)
 ]
 
 ---
@@ -585,7 +585,7 @@ template: plain
 #### A solution in Tcl plus C/C++
 
 In this case the "core logic" switching the heater on and off is implemented in
-[thermostate.c](Examples/Thermostate/Combined_SWIG/thermostate.c)._[]
+[thermostat.c](Examples/Thermostat/Combined_SWIG/thermostat.c)._[]
 
 ```
 const float low_trigger = 19.0;
@@ -603,7 +603,7 @@ void switch_heater(float temp) {
 ```
 
 With the (obvious) public interface in
-[thermostate.h](Examples/Thermostate/Combined_SWIG/thermostate.h):
+[thermostat.h](Examples/Thermostat/Combined_SWIG/thermostat.h):
 ```
 extern int system_heater; 
 extern void switch_heater(float temp);
@@ -620,12 +620,12 @@ template: plain
 #### A solution in Tcl plus C/C++ (2)
 
 It may also have automated tests as this one in
-[thermostate-test.c](Examples/Thermostate/Combined_SWIG/thermostate-test.c):
+[thermostat-test.c](Examples/Thermostat/Combined_SWIG/thermostat-test.c):
 ```
 #include <assert.h>
 #include <stdio.h>
 
-#include "thermostate.h"
+#include "thermostat.h"
 
 int main() {
         system_heater = 0;
@@ -655,12 +655,12 @@ Integrating the C/C++ code with Tcl is easy and and systematic with the tool
 [SWIG].
 
 At first the interface needs to be described as in
-[thermostate.i](Examples/Thermostate/Combined_SWIG/thermostate.i):._[]
+[thermostat.i](Examples/Thermostat/Combined_SWIG/thermostat.i):._[]
 
 ```
-%module thermostate
+%module thermostat
 %{
-#include "thermostate.h"
+#include "thermostat.h"
 %}
 
 int system_heater;
@@ -688,22 +688,22 @@ For the interface first a C-wrapper and finally a [Shared Object (`.so`-file)]
 is created.
 
 These are the relevant sections of the
-[Makefile](Examples/Thermostate/Combined_SWIG/Makefile):
+[Makefile](Examples/Thermostat/Combined_SWIG/Makefile):
 ```
 …
-thermostate.so:\
-        thermostate.o\
-        thermostate_wrap.o
-        gcc -shared thermostate.o thermostate_wrap.o -o$@
+thermostat.so:\
+        thermostat.o\
+        thermostat_wrap.o
+        gcc -shared thermostat.o thermostat_wrap.o -o$@
 
-thermostate_wrap.o:\
-        thermostate_wrap.c
-        gcc -c -fPIC -I/usr/include/tcl8.6 thermostate_wrap.c
+thermostat_wrap.o:\
+        thermostat_wrap.c
+        gcc -c -fPIC -I/usr/include/tcl8.6 thermostat_wrap.c
 
-thermostate_wrap.c:\
-        thermostate.i\
-        thermostate.h
-        swig -tcl thermostate.i
+thermostat_wrap.c:\
+        thermostat.i\
+        thermostat.h
+        swig -tcl thermostat.i
 …
 ```
 
@@ -716,7 +716,7 @@ template: plain
 
 The remaining code in Tcl/Tk mainly needs to create the user interface, exactly
 as it was done in the prototype. Beyond that the actual solution provided in
-[thermostate.tcl](Examples/Thermostate/Combined_SWIG/thermostate.tcl)
+[thermostat.tcl](Examples/Thermostat/Combined_SWIG/thermostat.tcl)
 shows how an additional interface tracking any modification to the global
 `system_heater` variable can be established with Tcl's feature to [`trace`]
 access to variables:._[]

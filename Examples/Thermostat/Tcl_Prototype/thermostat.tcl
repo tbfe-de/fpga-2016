@@ -28,7 +28,7 @@ proc switch_heater {temp} {
 # This ends the part that need to be touched if the Tcl/Tk simulation is later
 # used to visualize the part that is written in C; below is a very limited and
 # bare-bones implementation, that does nothing more as to enable the user to
-# the the assumed system temperatur and watch the effect on the heating state.
+# the the assumed system temperature and watch the effect on the heating state.
 
 # ---------------------------
 # Simulate temperature sensor
@@ -42,7 +42,7 @@ set sensed_temperature 21.0
 
 proc create_gui {} {
 
-	scale .system_temperatur\
+	scale .system_temperature\
 		-orient horizontal\
 		-from -20.0 -to 55.0 -resolution 0.5\
 		-variable sensed_temperature\
@@ -50,7 +50,7 @@ proc create_gui {} {
 
 	label .heater_state
 
-	pack .system_temperatur\
+	pack .system_temperature\
 		-side bottom\
 		-fill x
 

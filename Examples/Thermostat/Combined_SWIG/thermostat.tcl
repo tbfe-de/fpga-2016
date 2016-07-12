@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # C/C++ code will have been compiled into the share object loaded below
 
-load ./thermostate.so
+load ./thermostat.so
 
 # =============================================================================
 # This ends the part that need to be touched if the Tcl/Tk simulation is later

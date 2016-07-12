@@ -1,6 +1,6 @@
-%module thermostate
+%module thermostat
 %{
-#include "thermostate.h"
+#include "thermostat.h"
 %}
 
 int system_heater;

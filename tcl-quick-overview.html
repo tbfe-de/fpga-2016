@@ -305,7 +305,7 @@ It causes the *Tcl Syntax Parser* to
 * look at any character string as Tcl command,
 * applying word- and command separation,
 * plus variable and return value substitution,
-* while honoring all quoting,
+* while honouring all quoting,
 * ending with looking up the first word as command,
 * **– finally executing it –**
 * handing over all the remaining words as arguments.
@@ -670,7 +670,7 @@ As general scripting language Tcl has its Pro's and Con's:._[]
 
 * Disadvantages are:
 
-  * Not much hype anymore (nowadays)
+  * Not much hype any more (nowadays)
   * Might be considered "out-dated" and therefore …
   * … not be attractive to many software developers
   * Relatively small user community
@@ -691,10 +691,10 @@ Tcl lends itself well to event driven software designs.
 * An event-driven architecture
 
   * consists of may small handlers
-  * to which a central dispatches events
-  * is preferable anyway for GU-programming
+  * to which a central core dispatches events
+  * is preferable anyway for GUI-programming
 
-* It usally depends on the posibility for an application …
+* It usually depends on the possibility for an application …
 
   * …  to send events to itself
   * … either with or without delay
@@ -738,7 +738,7 @@ The following commands are essential for event-driven Tcl programming:
 
   * space available._[] **when writing** to a file or socket
 
-* [`socket`] `-server` – provide a "half-open" TCP/IP connection to accecpt
+* [`socket`] `-server` – provide a "half-open" TCP/IP connection to accept
   connection requests from clients in a server application
 
 .N[
@@ -777,7 +777,7 @@ You may feel that "some years" is a bit of understatement:
 
 Actually this multimeter was bought by the author about 15 years ago and the
 code shown was written around that time. The interesting fact is it still works
-essentially unchangend on any system with a Tcl interpreter that also offers
+essentially unchanged on any system with a Tcl interpreter that also offers
 the Tk extension for GUI programming.._[]
 
 * Whenever it was "ported" to a different host the only change was to  
@@ -790,7 +790,7 @@ the Tk extension for GUI programming.._[]
 Though it hardly might make sense in practice, the code would – at least in
 principle – also work with *Embedded Tcl Interpreters* like the ones integrated
 in design tools for scripting. The only catch is that the event-loop of Tcl/Tk
-might not smoothly interface with an event-driven GUI.  Vivado GUI-mode e.g.
+might not smoothly interface with an event-driven GUI. Vivado GUI-mode e.g.
 uses its own event-loop which has no provisions to merge-in other event-loops.
 ]
 
