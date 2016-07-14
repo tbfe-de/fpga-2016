@@ -1,6 +1,6 @@
 #!/usr/bin/tclsh
 # =====================================================================
-# Tcl/Tk Program with a GUI for Repeated Switching PCIe-Controlled LEDs
+# Tcl Program Implementing a TCP Server for Switching LEDs
 # =====================================================================
 
 set USAGE \

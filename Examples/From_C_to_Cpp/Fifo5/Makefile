@@ -24,7 +24,7 @@ clean:
 	rm -f fifo.so $(FIFO_SO_OBJS) fifo.s fifo_wrap.cxx
 
 fifo.o.size:
-	g++ -std=c++11 -c -O2 -fPIC -fno-exceptions fifo.cpp -o $@
+	g++ -std=c++11 -c -O2 fifo.cpp -o $@
 	@size $@
 	@rm $@
 

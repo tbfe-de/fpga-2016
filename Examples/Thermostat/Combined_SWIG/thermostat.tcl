@@ -1,3 +1,4 @@
+#!/usr/bin/wish
 # ----------------------------------------------------------------------------
 # C/C++ code will have been compiled into the share object loaded below
 
@@ -125,3 +126,18 @@ proc showvar args {
 	global system_heater
 	puts $system_heater
 }
+
+# ==============================================
+# Netzwerkfähigkeit
+
+proc handle_connection_request {chan client_ip client_port} {
+	puts "request from: $client_ip $client_port"
+	gets $chan command
+	puts "client did send: $command"
+	eval $command
+	close $chan
+}
+
+socket -server handle_connection_request 5678
+
+

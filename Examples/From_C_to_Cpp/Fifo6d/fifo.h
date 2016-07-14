@@ -16,7 +16,7 @@ template<> struct fifo_payload_arg<unsigned int>	{ using type = unsigned int; };
 template<> struct fifo_payload_arg<unsigned long>	{ using type = unsigned long; };
 template<> struct fifo_payload_arg<unsigned long long>	{ using type = unsigned long long; };
 
-template<typename T> using fifo_payload_arg_t = typename fifo_payload_arg<T>::type;
+// template<typename T> using fifo_payload_arg_t = typename fifo_payload_arg<T>::type;
 
 
 template<typename PayLoad>
@@ -32,7 +32,7 @@ protected:
 		: storage(data), wrap_size(size)
 	{}
 
-	auto put(fifo_payload_arg_t<PayLoad>) -> bool;
+	auto put(typename fifo_payload_arg<PayLoad>::type) -> bool;
 	auto get(PayLoad&) -> bool;
 
 	inline

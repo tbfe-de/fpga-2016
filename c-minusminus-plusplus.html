@@ -247,6 +247,50 @@ the principle could be adopted: *As close to C as possible, but no closer.*
 template: plain
 name: what_you_may_use_blindly
 
+### Some C++ Design Concepts
+
+.N.center[
+You Only Pay for What You Use.
+]
+
+* Generally achieved ...
+
+* ... "except for exceptions"._[]
+
+  * Typically still fast if `throw` → `catch` path is not taken …
+
+  * … but tends to generate more code as classic approaches
+
+.N.center[
+As Close to C As Possible - BUT NO CLOSER!
+]
+
+* Somewhat stricter rules with respect to type conversions
+
+* Compatibility with "Historic Syntax Glitches" removed
+
+.F[:
+The actually problem is **not** inherent in the nature of exceptions but caused
+by separate compilation. If translation environments were based on a full
+source analysis (like e.g. some static code checking and verification tools)
+C++ exceptions could be handled much more efficiently.
+]
+
+---
+template: linkinfo
+graphic: ExecutionModel
+name: cpp_execution_model
+
+### The C++ Execution Model …
+
+… is the same as in C.
+
+**Exactly the same.**
+
+---
+template: plain
+name: what_you_may_use_blindly
+
 ## What You May Use Blindly
 
 -------------------------------------------------------------------------------

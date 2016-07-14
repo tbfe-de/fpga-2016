@@ -923,24 +923,6 @@ At this point the road splits:
 template: plain
 name: pcie_remote_ctrl
 
-### The PCIe Remote Controller
-
-There is a collection of examples in directory
-[Tcl-Tk-PCIe/tcl_app](Examples/Tcl-Tk-PCIe/tcl_app)
-that are best viewed and explained in the following order:
-
-* [leds-set-simple.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-simple.tcl)
-* [leds-set-repeat.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-repeat.tcl)
-* [leds-set-tk_gui.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-tk_gui.tcl)
-* [leds-set-client.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-client.tcl)
-* [leds-set-server.tcl		](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-server.tcl)
-* [switch-poll-simple.tcl	](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-simple.tcl)
-* [switch-poll-tk_gui.tcl	](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-tk_gui.tcl)
-
----
-template: plain
-name: pcie_remote_ctrl
-
 ### Some Practical Exercises for DIY
 
 There is a set of exercises, from simple to advanced, in 9 steps..[]
@@ -963,6 +945,248 @@ as described in the comments at the start of the files.
 .F[:
 Some advanced examples are a *Server* and a *Client*. The latter has the suffix
 `x` after its numbered step.
+]
+
+---
+template: plain
+name: pcie_remote_ctrl
+
+### The PCIe Remote Controller
+
+There is a collection of examples in directory
+[Tcl-Tk-PCIe/tcl_app](Examples/Tcl-Tk-PCIe/tcl_app)
+that are best viewed and explained in the following order:
+
+* [leds-set-simple.tcl		](#leds_set_simple)
+* [leds-set-repeat.tcl		](#leds_set_repeat)
+* [leds-set-tk_gui.tcl		](#leds_set_tk_gui)
+* [leds-set-server.tcl		](#leds_set_server)
+* [leds-set-client.tcl		](#leds_set_client)
+
+* [switch-poll-simple.tcl	](#switch_poll_simple)
+* [switch-poll-tk_gui.tcl	](#switch_poll_tk_gui)
+* [universal_tk_remote.tcl	](#universal_tk_remote)
+
+---
+template: plain
+name: leds_set_simple
+
+#### A Simple LED Switcher
+
+Source: [leds-set-simple.tcl](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-simple.tcl)
+
+|             | Description                  |
+|:------------|:-----------------------------|
+| Interpreter | tclsh (pure Tcl)             |
+| LOC (total) | 48                           |
+| - Comments  | 4                            |
+| - Empty     | 10                           |
+| LOC (eff.)  | 34                           |
+| Example Use | `./leds-set-simple.tcl 1011` |
+| (or)        | `./leds-set-simple.tcl 0000` |
+| (or)        | `./leds-set-simple.tcl 1111` |
+
+Each character `0` or `1` corresponds to what will be written to the device
+files `/sys/tcl_drv/LED0` to `/sys/tcl_drv/LED3`
+
+This example shows how to open a file for output, write a character, and close
+it immediately. Therefore `flush`-ing the buffer could be omitted. It is just
+given as simple example to prepare the field for what comes later.
+
+As a possible improvement consider putting the the repeated sections of (very)
+similar source code into a loop.
+
+---
+template: plain
+name: leds_set_repeat
+
+#### Write Patterns to the LEDs
+
+Source: [leds-set-repeat.tcl](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-repeat.tcl)
+
+|             | Description                                               |
+|:------------|:----------------------------------------------------------|
+| Interpreter | tclsh (pure Tcl)                                          |
+| LOC (total) | 77                                                        |
+| - Comments  | 4                                                         |
+| - Empty     | 11                                                        |
+| LOC (eff.)  | 62                                                        |
+| Example Use | `./leds-set-repeat.tcl 1111:5000 0000:0`                  |
+| (or)        | `./leds-set-repeat.tcl 1000:666 0100:666 0010:666 0001:0` |
+| (or)        | `./leds-set-repeat.tcl 1001:500 0110:500 loop`            |
+
+Each character `0` or `1` left to the colon corresponds to what will be written
+to the device files `/sys/tcl_drv/LED0` to `/sys/tcl_drv/LED3`. Then for the
+time delay specified to the right of the colon the program sleeps.
+
+After all the argument patterns are written (and each of the time delay has
+passed) the program terminates – or, if the last argument is the word `loop`,
+everything will repeat from start.
+
+---
+template: plain
+name: leds_set_tk_gui
+
+#### Watch and Switch LEDs from a GUI
+
+Source: [leds-set-tk_gui.tcl](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-tk_gui.tcl)
+
+|             | Description                              |
+|:------------|:-----------------------------------------|
+| Interpreter | wish (Tcl with Tk extension)             |
+| LOC (total) | 64                                       |
+| - Comments  | 4                                        |
+| - Empty     | 9                                        |
+| LOC (eff.)  | 51                                       |
+| Example Use | `./leds-set-tk-gui.tcl /sys/tcl_drv LED` |
+| (or)        | `./leds-set-tk.gui.tcl /sys/tcl_drv`     |
+| (or)        | `./leds-set-tk.gui.tcl`                  |
+
+This demonstrates watching and switching the LEDs via Tk-Checkboxes.
+
+.pull-left.center[
+![Tk-GUI based LED access (1)](ScreenShots/leds-set-tk-gui1.png)
+]
+
+.pull-right.center[
+![Tk-GUI based LED access (2)](ScreenShots/leds-set-tk-gui2.png)
+]
+
+---
+template: plain
+name: leds_set_server
+
+#### LED Access with TCP-Server
+
+Source: [leds-set-server.tcl](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-server.tcl)
+
+|             | Description                              |
+|:------------|:-----------------------------------------|
+| Interpreter | tclsh (pure Tcl)                         |
+| LOC (total) | 137                                      |
+| - Comments  | 4                                        |
+| - Empty     | 19                                       |
+| LOC (eff.)  | 114                                      |
+| Example Use | `./leds-set-server.tcl /sys/tcl_drv LED` |
+| (or)        | `./leds-set-server.gui.tcl /sys/tcl_drv` |
+| (or)        | `./leds-set-server.gui.tcl`              |
+
+The server always runs at port 7243 (which is `P` `C` `I` and `E` on a
+classic telephone key-pad).
+
+.N[
+The server is capable of handling any number of clients, which are also
+synchronized with respect to each other.
+]
+
+---
+template: plain
+name: leds_set_client
+
+#### Tk-GUI Based TCP-Client (for the Server)
+
+Source: [leds-set-client.tcl](Examples/Tcl-Tk-PCIe/tcl_app/leds-set-client.tcl)
+
+|             | Description                             |
+|:------------|:----------------------------------------|
+| Interpreter | wish (Tcl with Tk extension)            |
+| LOC (total) | 99                                      |
+| - Comments  | 4                                       |
+| - Empty     | 10                                      |
+| LOC (eff.)  | 85                                      |
+| Example Use | `./leds-set-client.tcl :7243`           |
+| (or)        | `./leds-set-client.tcl localhost:7243`  |
+| (or)        | `./leds-set-client.tcl other-host:7243` |
+
+Server TCP-host and -port number are taken from the command line.
+
+The host defaults to `localhost`, the port number must always be specified
+(according to the port used by the server).
+
+---
+template: plain
+name: switch_poll_simple
+
+#### A Simple Switch-Polling Program
+
+Source: [switch-poll-simple.tcl](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-simple.tcl)
+
+|             | Description                                          |
+|:------------|:-----------------------------------------------------|
+| Interpreter | tclsh (pure Tcl)                                     |
+| LOC (total) | 56                                                   |
+| - Comments  | 4                                                    |
+| - Empty     | 7                                                    |
+| LOC (eff.)  | 45                                                   |
+| Example Use | `./switch-poll-simple.tcl 200 /sys/tcl_drv/sw W N E` |
+| (or)        | `./switch-poll-simple.tcl 500 /sys/tcl_drv/sw E W`   |
+| (or)        | `./switch-poll-simple.tcl 50 /sys/tcl_drv/sw N`      |
+
+Each of the switches named from the third argument on will be polled via their
+device files (prefix given as second argument) in intervalls specified as
+first argument (in milliseconds).
+
+This example is mostly given to prepare the field for what comes later.
+
+---
+template: plain
+name: switch_poll_tk_gui
+
+#### Switch-Polling/Simulating with a Tk-GUI
+
+Source: [switch-poll-tk_gui.tcl](Examples/Tcl-Tk-PCIe/tcl_app/switch-poll-tk_gui.tcl)
+
+|             | Description                                      |
+|:------------|:-------------------------------------------------|
+| Interpreter | wish (Tcl with Tk extension)                     |
+| LOC (total) | 180                                              |
+| - Comments  | 8                                                |
+| - Empty     | 26                                               |
+| LOC (eff.)  | 146                                              |
+| Example Use | `./switch-poll-tk_gui.tcl /sys/tcl_drv/sw W N E` |
+| (or)        | `./switch-poll-tk_gui.tcl /sys/tcl_drv/sw E W`   |
+| (or)        | `./switch-poll-tk_gui.tcl /sys/tcl_drv/sw N`     |
+
+This server also already provides the capabilities for clients to act as
+remote controllers.._[]
+
+.F[:
+Beyond this there is a configuration section from which some details of
+behaviour can be configured, e.g. the possible poll rates from which then
+may chosen via a spinbox in the Tk-GUI.
+]
+
+---
+template: plain
+name: universal_tk_remote
+
+#### Universal Remote Control Application
+
+Source: [universal-tk_remote.tcl](Examples/Tcl-Tk-PCIe/tcl_app/universal-tk_remote.tcl)
+
+|             | Description                                |
+|:------------|:-------------------------------------------|
+| Interpreter | wish (Tcl with Tk extension)               |
+| LOC (total) | 139                                        |
+| - Comments  | 19                                         |
+| - Empty     | 16                                         |
+| LOC (eff.)  | 104                                        |
+| Example Use | `./universal-tk_remote.tcl :8856`          |
+| (or)        | `./universal-tk_remote.tcl localhost:8856` |
+| (or)        | `./universal-tk_remote.tcl :8856 debug`    |
+
+This *Remote Controller* very flexible and more general as required by the
+[previous example](#switch_poll_tk_gui) as its GUI is "downloaded" from the
+server.
+
+.N.center[
+**It can be a substantial security risk to let an application execute arbitrary
+Tcl-commands sent via a TCP connection.**._[]  
+]
+
+.F[:
+Various approaches to resolve this exist but are beyond the scope of this
+bare-bones example.
 ]
 
 ---

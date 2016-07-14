@@ -4,7 +4,7 @@
 # =====================================================================
 
 set USAGE \
-"Usage:	$argv0 \[<driver-sysfs> \[<led-prefix>\]]
+"Usage:	$argv0 \[<driver-sysfs> \[<led-prefix>\]\]
  with	- <driver-sysfs> the directory path to the directory where
 	  the led PCIe driver is located
         - <led-prefix> the prefix to the LED device files (for which

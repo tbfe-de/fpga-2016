@@ -170,16 +170,16 @@ proc display {fd} {
                 if {[expr ($x & (1<<$i))]} {
                         set w [lindex $mapping($n) $i]
                         if {[regexp {^([abcd])([1-7])$} $w - b z]} {
-                                .$b.$z configure -bg black
+                                .$b.$z configure -bg red
                         }
                         if {[regexp {^p([1-3])$} $w - z]} {
-                                .p$z configure -bg black
+                                .p$z configure -bg red
                         }
                         if {[set p [lsearch $info $w]] >= 0} {
-                                .info.$p configure -fg black
+                                .info.$p configure -fg red
                         }
                         if {[string equal $w S]} {
-                                .sign configure -bg black
+                                .sign configure -bg red
                         }
                         if {[lsearch $umod $w] != -1} {
                                 .umod configure -text $w

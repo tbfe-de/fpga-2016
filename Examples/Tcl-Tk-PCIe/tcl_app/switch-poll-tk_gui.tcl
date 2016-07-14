@@ -96,11 +96,6 @@ proc build_tk_gui {h w args} {
 
 }
 
-set remote_control switch-poll-remote.tcl
-if {[file exists $remote_control]} {
-	source $remote_control
-}
-
 proc poll_once {old_state} {
 	.top configure -background yellow
 	if {[info exists ::poll_flash_duration]
@@ -119,9 +114,11 @@ proc poll_once {old_state} {
 			[join [split $old_state ""] " | "]\
 			[join [split $new_state ""] " | "]\
 		]
-		client_sync_send $state_change
+		client_sync_send $state_change $colorize
 		.out insert end $state_change $colorize
 		.out see end
+		set ::lastline $state_change
+		set ::lastcolor $colorize
 	}
 	return $new_state
 }
@@ -136,5 +133,48 @@ eval build_tk_gui 10 60 $switch_list
 
 set poll_interval_middle [expr {[llength $poll_interval]/2}]
 set poll_msec [lindex $poll_interval $poll_interval_middle]
+
+set server_port 8856
+
+proc client_sync_send {ls lc} {
+	foreach cl [array names ::clients] {
+		puts $cl [list .out insert end $ls $lc]
+		flush $cl
+	}
+}
+
+proc client_receive {cl} {
+	if {[eof $cl]
+         || [gets $cl line] < 0} {
+		close $cl
+		unset ::clients($cl)
+		return
+	}
+	append ::command $line\n
+	if {[info complete $::command]} {
+		uplevel #0 $::command
+		unset ::command
+	}
+	
+}
+
+proc client_connect {fd ip port} {
+	set ::clients($fd) "$ip:$port"
+	puts $fd [list proc build_tk_gui\
+			[info args build_tk_gui]\
+			[info body build_tk_gui]
+	]
+	puts $fd [list proc simulate_key_press\
+			[info args simulate_key_press]\
+			{puts $::server_fd [list simulate_key_press $sw $on_off]}
+	]
+	puts $fd "build_tk_gui 10 60 $::switch_list"
+	puts $fd [list .out insert end $::lastline $::lastcolor]
+	flush $fd
+	fileevent $fd readable [list client_receive $fd]
+}
+socket -server client_connect $server_port
+
+wm title . "[wm title .] serving port $server_port"
 
 poll_forever [string repeat ? [llength $switch_list]]
